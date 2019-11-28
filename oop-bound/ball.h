@@ -3,10 +3,10 @@
 
 #include <tuple>
 
-class Ball() {
+class Ball {
 private:
-	std::pair<float, float> center;
-	std::pair<float, float> speed;
+	sf::Vector2<float> center;
+	sf::Vector2<float> speed;
 public:
 	Ball();
 	virtual ~Ball();
@@ -14,7 +14,6 @@ public:
 	void setSpeed(float, float);
 	void update();
 	void draw();
-}
-
+};
 
 #endif

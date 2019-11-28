@@ -1,17 +1,17 @@
 #include <SFML/Graphics.hpp>
+#include "base_block.h"
 
 int main()
 {
+
+	//block size = 30px * 30px
 	// create the window
-	sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
-	sf::Texture texture;
-	if (!texture.loadFromFile("image.png")) {
-		//error..
+	sf::RenderWindow window(sf::VideoMode(900, 600), "My window");
+
+	BaseBlock b[10];
+	for (int i = 0; i < 10; i++) {
+		b[i].setPosition(i, 0);
 	}
-	sf::Sprite sprite;
-	sprite.setTexture(texture);
-	sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
-	sprite.setPosition(100, 100);
 	// run the program as long as the window is open
 	while (window.isOpen())
 	{
@@ -26,10 +26,13 @@ int main()
 
 		// clear the window with black color
 		window.clear(sf::Color::Black);
-		window.draw(sprite);
+		for (int i = 0; i < 10; i++) {
+			b[i].draw(window);
+		}
 		// end the current frame
 		window.display();
 	}
 
 	return 0;
+
 }
