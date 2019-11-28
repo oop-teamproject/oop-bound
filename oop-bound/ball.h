@@ -2,6 +2,7 @@
 #define __BALL_H__
 
 #include <tuple>
+#include "SFML/Graphics.hpp"
 
 class Ball {
 private:
