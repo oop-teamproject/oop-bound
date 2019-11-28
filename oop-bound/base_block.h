@@ -21,12 +21,14 @@ private:
 public:
 	BaseBlock();
 	virtual ~BaseBlock();
-	virtual void collision_top(Ball& b) {};
-	virtual void collision_lr(Ball& b) {};
-	virtual void collision_bottom(Ball& b) {};
+	virtual void collision_top(Ball& b) { b.setSpeed(b.getSpeed().x, -b.getSpeed().y); };
+	virtual void collision_lr(Ball& b) { b.setSpeed(-b.getSpeed().x, b.getSpeed().y); };
+	virtual void collision_bottom(Ball& b) { b.setSpeed(b.getSpeed().x, -b.getSpeed().y); };
 	
 	virtual bool collision_check(const Ball& b);
 	void draw(sf::RenderWindow& window);
 	void setPosition(int x, int y);
+	void setPositionToGrid(int x, int y);
+	sf::Vector2<int> getPosition();
 };
 #endif
