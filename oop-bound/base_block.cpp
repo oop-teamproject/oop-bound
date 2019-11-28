@@ -14,7 +14,7 @@ BaseBlock::~BaseBlock()
 {
 }
 
-bool BaseBlock::collision_check(const Ball& b)
+bool BaseBlock::collision_check(Ball& b)
 {
 	float dx = getPosition().x % 30;
 	float sx = getPosition().x / 30;

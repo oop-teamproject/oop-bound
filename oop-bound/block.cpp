@@ -28,7 +28,7 @@ void BreakBlock::collision_top(Ball& b) {
 	breakSelf();
 }
 
-bool BreakBlock::collision_check(const Ball& b) {
+bool BreakBlock::collision_check(Ball& b) {
 	if (!broken) return BaseBlock::collision_check(b);
 	return false;
 }

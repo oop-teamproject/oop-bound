@@ -16,7 +16,7 @@ public:
 	BreakBlock();
 	~BreakBlock();
 	void collision_top(Ball& b);
-	bool collision_check(const Ball& b);
+	bool collision_check(Ball& b);
 	void draw(sf::RenderWindow& window);
 	void breakSelf();
 

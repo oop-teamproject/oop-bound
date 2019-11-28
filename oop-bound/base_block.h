@@ -24,7 +24,7 @@ public:
 	virtual void collision_lr(Ball& b) { b.setSpeed(-b.getSpeed().x, b.getSpeed().y); };
 	virtual void collision_bottom(Ball& b) { b.setSpeed(b.getSpeed().x, -b.getSpeed().y); };
 	
-	virtual bool collision_check(const Ball& b);
+	virtual bool collision_check(Ball& b);
 	bool setTexture(std::string filename);
 	virtual void draw(sf::RenderWindow& window);
 	void setPosition(int x, int y);
