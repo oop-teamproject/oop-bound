@@ -13,13 +13,13 @@ int main()
 
 	//block size = 30px * 30px
 	// create the window
-	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "My window");
-	BaseBlock b[10];
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Catch the flag!!");
+	BaseBlock* block = new BaseBlock[10];
 	Ball ball;
 	for (int i = 0; i < 10; i++) {
-		b[i].setPositionToGrid(i - 1, 1);
+		block[i].setPositionToGrid(i - 1, 1);
 	}
-	b[0].setPositionToGrid(0, 0);
+	block[0].setPositionToGrid(0, 0);
 	ball.setPosition(0, 0);
 	//ball.setSpeed(1.0f / 1800, 0);
 	// run the program as long as the window is open
@@ -35,9 +35,9 @@ int main()
 		}
 
 		// clear the window with black color
-		window.clear(sf::Color::White);
+		window.clear(sf::Color::Black);
 		for (int i = 0; i < 10; i++) {
-			b[i].draw(window);
+			block[i].draw(window);
 		}
 		ball.draw(window);
 
@@ -47,6 +47,7 @@ int main()
 		window.setFramerateLimit(60);
 	}
 
+	delete[] block;
 	return 0;
 
 }

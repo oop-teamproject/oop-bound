@@ -17,7 +17,6 @@ BaseBlock::~BaseBlock()
 
 bool BaseBlock::collision_check(const Ball& b)
 {
-
 	return false;
 }
 
