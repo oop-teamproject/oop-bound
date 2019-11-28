@@ -48,7 +48,13 @@ sf::Vector2<float> Ball::getSpeed() const {
 
 void Ball::update()
 {
+	setSpeed(getSpeed().x, getSpeed().y + 0.02f);
 	setPosition(getPosition() + sf::Vector2<float>(BLOCK_SIZE * getSpeed().x, BLOCK_SIZE * getSpeed().y));
+	if (getPosition().y > WINDOW_HEIGHT - BALL_RAD) setPosition(center.x, 0);
+	if (speed.y > 0.4) speed.y = 0.4;
+	if (speed.y < -0.4) speed.y = -0.4;
+	if (speed.x > 0.4) speed.x = 0.4;
+	if (speed.x < -0.4) speed.x = -0.4;
 }
 
 void Ball::draw(sf::RenderWindow& window)
