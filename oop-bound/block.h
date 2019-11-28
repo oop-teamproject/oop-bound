@@ -22,4 +22,15 @@ public:
 
 };
 
+class FlagBlock : public BaseBlock {
+public:
+	FlagBlock();
+	~FlagBlock();
+};
+
+class BombBlock : public BaseBlock {
+public:
+	BombBlock();
+	~BombBlock();
+};
 #endif

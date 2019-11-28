@@ -20,8 +20,10 @@ int main()
 		block[i] = new BreakBlock();
 		block[i]->setPositionToGrid(i - 1, 15);
 	}
-	for (int i = 6; i < 10; i++) {
-		block[i] = new DefaultBlock();
+	block[6] = new FlagBlock();
+	block[6]->setPositionToGrid(5, 15);
+	for (int i = 7; i < 10; i++) {
+		block[i] = new BombBlock();
 		block[i]->setPositionToGrid(i - 1, 15);
 	}
 	block[0]->setPositionToGrid(0, 0);

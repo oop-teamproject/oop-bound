@@ -40,3 +40,27 @@ void BreakBlock::draw(sf::RenderWindow& window) {
 void BreakBlock::breakSelf() {
 	broken = true;
 }
+
+FlagBlock::FlagBlock()
+{
+	BaseBlock();
+	if (setTexture("image/flag.png")) {
+		//error
+	}
+}
+
+FlagBlock::~FlagBlock()
+{
+}
+
+BombBlock::BombBlock()
+{
+	BaseBlock();
+	if (setTexture("image/bomb.png")) {
+		//error
+	}
+}
+
+BombBlock::~BombBlock()
+{
+}
