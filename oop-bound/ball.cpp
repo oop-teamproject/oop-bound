@@ -1,5 +1,5 @@
+#include "main.h"
 #include "ball.h"
-#define BLOCK_SIZE 30
 Ball::Ball()
 {
 	if (!texture.loadFromFile("image/ball.png")) {

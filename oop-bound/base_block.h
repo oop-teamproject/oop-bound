@@ -2,10 +2,9 @@
 #define __BASE_BLOCK_H__
 
 #include "SFML/Graphics.hpp"
+#include "main.h"
 #include <tuple>
 #include "Ball.h"
-
-#define BLOCK_SIZE 30
 
 class BaseBlock {
 private:
