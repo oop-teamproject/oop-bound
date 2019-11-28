@@ -4,10 +4,9 @@ BaseBlock::BaseBlock()
 {
 
 	position.x = position.y = 0;
-	if (!texture.loadFromFile("image/base.png")) {
+	if (setTexture("image/base.png")) {
 		//error
 	}
-	sprite.setTexture(texture, true);
 	sprite.setPosition((float)BLOCK_SIZE * position.x, (float)BLOCK_SIZE * position.y);
 }
 
@@ -134,6 +133,14 @@ bool BaseBlock::collision_check(const Ball& b)
 	
 	}
 	return false;
+}
+
+bool BaseBlock::setTexture(std::string filename)
+{
+	if (!texture.loadFromFile(filename))
+		return false;
+	sprite.setTexture(texture, true);
+	return true;
 }
 
 void BaseBlock::draw(sf::RenderWindow& window)

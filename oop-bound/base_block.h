@@ -13,7 +13,7 @@ private:
 	sf::Texture texture; //블럭 이미지
 	sf::Sprite sprite; //블럭을 그리기 위한 사각형 스프라이트 클래스
 	//bool Visivle; // 장치블록 이나 부서지는 블록 충돌처리했을 떄 block에 영향을 주는것
-	//int Seffect;// effect종류를 적어놔서 볼충돌처리할떄 볼에 어떤 영향을 줄지 적어놓는것
+	//int Seffect;// effect종류를 적어놔서 볼 충돌처리할 때 볼에 어떤 영향을 줄지 적어놓는것
 
 	//BlockType case는 여기서는 5가지정도 기본블록, 부서지는 블록, 장치블록, 장치당하는 블록,
 	//점프블록 순간이동 블록 
@@ -26,7 +26,8 @@ public:
 	virtual void collision_bottom(Ball& b) { b.setSpeed(b.getSpeed().x, -b.getSpeed().y); };
 	
 	virtual bool collision_check(const Ball& b);
-	void draw(sf::RenderWindow& window);
+	bool setTexture(std::string filename);
+	virtual void draw(sf::RenderWindow& window);
 	void setPosition(int x, int y);
 	void setPositionToGrid(int x, int y);
 	sf::Vector2<int> getPosition();
