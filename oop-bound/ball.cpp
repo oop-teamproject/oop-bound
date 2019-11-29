@@ -35,6 +35,10 @@ void Ball::setSpeed(float x, float y)
 {
 	speed.x = x;
 	speed.y = y;
+	if (speed.x > BALL_MAX_SPEED_X) speed.x = BALL_MAX_SPEED_X;
+	if (speed.x < BALL_MIN_SPEED_X) speed.x = BALL_MIN_SPEED_X;
+	if (speed.y > BALL_MAX_SPEED_Y) speed.y = BALL_MAX_SPEED_Y;
+	if (speed.y < BALL_MIN_SPEED_Y) speed.y = BALL_MIN_SPEED_Y;
 }
 
 void Ball::setSpeed(sf::Vector2<float> spd)
@@ -51,10 +55,6 @@ void Ball::update()
 	setSpeed(getSpeed().x, getSpeed().y + 0.02f);
 	setPosition(getPosition() + sf::Vector2<float>(BLOCK_SIZE * getSpeed().x, BLOCK_SIZE * getSpeed().y));
 	if (getPosition().y > WINDOW_HEIGHT - BALL_RAD) setPosition(center.x, 0);
-	if (speed.y > 0.4) speed.y = 0.4;
-	if (speed.y < -0.4) speed.y = -0.4;
-	if (speed.x > 0.4) speed.x = 0.4;
-	if (speed.x < -0.4) speed.x = -0.4;
 }
 
 void Ball::draw(sf::RenderWindow& window)

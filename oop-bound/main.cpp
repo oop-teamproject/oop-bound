@@ -37,9 +37,19 @@ int main()
 		while (window.pollEvent(event))
 		{
 			// "close requested" event: we close the window
-			if (event.type == sf::Event::Closed)
+			switch (event.type) {
+			case sf::Event::Closed:
 				window.close();
+			}
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			ball.setSpeed(ball.getSpeed() - sf::Vector2f(0.06f, 0.f));
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			ball.setSpeed(ball.getSpeed() + sf::Vector2f(0.06f, 0.f));
+		}
+		else ball.setSpeed(0, ball.getSpeed().y);
+
 
 		// clear the window with black color
 		window.clear(sf::Color::Black);
