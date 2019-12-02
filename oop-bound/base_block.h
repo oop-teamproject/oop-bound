@@ -31,4 +31,12 @@ public:
 	void setPositionToGrid(int x, int y);
 	sf::Vector2<int> getPosition();
 };
+
+class AirBlock: public BaseBlock{
+public:
+	AirBlock() {}
+	~AirBlock() {}
+	virtual bool collision_check(Ball& b) { return false; /*Do Nothing*/ }
+	void draw(sf::RenderWindow& window) { /*Do Nothing*/ }
+};
 #endif

@@ -53,12 +53,26 @@ FlagBlock::~FlagBlock()
 {
 }
 
+void FlagBlock::collision_top(Ball& b) {
+
+}
+void FlagBlock::collision_lr(Ball& b) {
+
+}
+void FlagBlock::collision_bottom(Ball& b) {
+
+}
+
 BombBlock::BombBlock()
 {
 	BaseBlock();
 	if (setTexture("image/bomb.png")) {
 		//error
 	}
+}
+
+void BombBlock::collision_top(Ball& b) {
+
 }
 
 BombBlock::~BombBlock()
