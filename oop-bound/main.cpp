@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "main.h"
-#include "base_block.h"
 #include "block.h"
+#include "stage.h"
 #include <iostream>
 
 int main()
@@ -9,7 +9,10 @@ int main()
 
 	//block size = 30px * 30px
 	// create the window
+	sf::Image icon;
+	icon.loadFromFile("image/ball.png");
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Catch the flag!!");
+	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	BaseBlock* block[10];
 	Ball ball;
 	for (int i = 0; i < 3; i++) {
