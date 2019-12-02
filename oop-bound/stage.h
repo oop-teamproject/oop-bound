@@ -18,6 +18,9 @@ public:
 	bool writeToFile(const std::string& filename); //파일에 스테이지를 쓴다. 성공 여부를 반환
 	sf::Vector2<int> getSize();
 	const BaseBlock** getConstMap() { return (const BaseBlock**)map; }
+	
+	
 };
+
 
 #endif

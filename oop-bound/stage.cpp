@@ -14,3 +14,9 @@ Stage::~Stage() {
 	delete[] map;
 	map = NULL;
 }
+
+void Stage::setBlock(int i, int j)
+{
+	this 
+
+}
