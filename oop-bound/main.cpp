@@ -46,12 +46,17 @@ int main()
 			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			ball.setSpeed(ball.getSpeed() - sf::Vector2f(0.06f, 0.f));
+			ball.setLkPressed(true);
+			ball.setRkPressed(false);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			ball.setSpeed(ball.getSpeed() + sf::Vector2f(0.06f, 0.f));
+			ball.setLkPressed(false);
+			ball.setRkPressed(true);
 		}
-		else ball.setSpeed(0, ball.getSpeed().y);
+		else {
+			ball.setLkPressed(false);
+			ball.setRkPressed(false);
+		}
 
 
 		// clear the window with black color

@@ -48,16 +48,35 @@ void Ball::setSpeed(sf::Vector2<float> spd)
 	setSpeed(spd.x, spd.y);
 }
 
+void Ball::setLkPressed(bool b) {
+	lKeyPressed = b;
+}
+
+void Ball::setRkPressed(bool b) {
+	rKeyPressed = b;
+}
+
+bool Ball::getLkPressed() {
+	return lKeyPressed;
+}
+
+bool Ball::getRkPressed() {
+	return rKeyPressed;
+}
+
 sf::Vector2<float> Ball::getSpeed() const {
 	return speed;
 }
 
 void Ball::update()
 {
+	if(lKeyPressed) setSpeed(getSpeed() - sf::Vector2f(0.015f, 0.f));
+	else if(rKeyPressed) setSpeed(getSpeed() + sf::Vector2f(0.015f, 0.f));
+	else setSpeed(getSpeed().x * 0.4f, getSpeed().y);
 	setSpeed(getSpeed().x, getSpeed().y + 0.02f);
 	setPosition(getPosition() + sf::Vector2<float>(BLOCK_SIZE * getSpeed().x, BLOCK_SIZE * getSpeed().y));
 #ifdef __BALL_DEBUG__
-	if (getPosition().y > WINDOW_HEIGHT - BALL_RAD - 20) { setSpeed(getSpeed().x, -20); setPosition(getPosition().x, WINDOW_HEIGHT - BALL_RAD - 19); }
+	if (getPosition().y > WINDOW_HEIGHT - BALL_RAD - 20) { setSpeed(getSpeed().x, -.4f); setPosition(getPosition().x, WINDOW_HEIGHT - BALL_RAD - 19); }
 #endif
 }
 
