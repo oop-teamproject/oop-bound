@@ -19,6 +19,7 @@ int main()
 
 	for (int i = 0; i < stage.getSize().y; i++) {
 		stage.setAt(i, 15, new BreakBlock());
+		stage.setAt(i + 2, 16, new BombBlock());
 	}
 
 
