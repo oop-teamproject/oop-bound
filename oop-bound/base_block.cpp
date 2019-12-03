@@ -110,7 +110,7 @@ bool BaseBlock::collision_check(Ball& b)
 				collision_right(b);
 
 			}
-			else if (diffx >= diffy && abs(diffx) >= abs(diffy))
+			else if (diffx <= diffy && abs(diffx) >= abs(diffy))
 			{
 				//안쪽왼쪽겹친파트
 				b.setPosition(blockx - (BLOCK_SIZE / 2 + BALL_RAD), bally);
