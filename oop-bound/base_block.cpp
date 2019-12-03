@@ -18,8 +18,21 @@ void BaseBlock::collision_top(Ball& b) {
 	b.setSpeed(b.getSpeed().x, -.4f);
 }
 
-void BaseBlock::collision_lr(Ball& b) {
+void BaseBlock::collision_left(Ball& b) {
 	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
+	if (b.getLkPressed() == true)
+	{
+		b.setSpeed(BALL_MIN_SPEED_X, BALL_MIN_SPEED_Y*2/3);
+	
+	}
+}
+void BaseBlock::collision_right(Ball& b) {
+	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
+	if (b.getRkPressed() == true)
+	{
+		b.setSpeed(BALL_MAX_SPEED_X, BALL_MIN_SPEED_Y*2/3);
+	
+	}
 }
 
 void BaseBlock::collision_bottom(Ball& b) {
@@ -92,13 +105,13 @@ bool BaseBlock::collision_check(Ball& b)
 			{
 				//안쪽 오른쪽겹친파트
 				b.setPosition(blockx+ (BLOCK_SIZE / 2 + BALL_RAD), bally);
-				collision_lr(b);
+				collision_right(b);
 			}
 			else if (diffx >= diffy && abs(diffx) >= abs(diffy))
 			{
 				//안쪽왼쪽겹친파트
 				b.setPosition(blockx - (BLOCK_SIZE / 2 + BALL_RAD), bally);
-				collision_lr(b);
+				collision_left(b);
 			}
 			else
 			{
@@ -111,6 +124,7 @@ bool BaseBlock::collision_check(Ball& b)
 			if (ndiffy>=0&&( ndiffx==0 || (abs(ndiffy)>=abs(ndiffx)) ) )
 			{
 			 //위쪽충돌
+				b.setPosition(ballx, blocky + (BLOCK_SIZE / 2 + BALL_RAD));
 				collision_bottom(b);
 			
 			}
@@ -118,19 +132,21 @@ bool BaseBlock::collision_check(Ball& b)
 			{
 			
 			//아래충돌
-				
+				b.setPosition(ballx, blocky - (BLOCK_SIZE / 2 + BALL_RAD));
 				collision_top(b);
 			
 			}
 			else if (ndiffx >= 0 && (ndiffy == 0 || (abs(ndiffx) >= abs(ndiffy))))
 			{
 			//우측충돌
-				collision_lr(b);
+				b.setPosition(blockx + (BLOCK_SIZE / 2 + BALL_RAD), bally);
+				collision_right(b);
 			
 			}
 			else if (ndiffx <= 0 && (ndiffy == 0 || (abs(ndiffx) >= abs(ndiffy))))
 			{
-				collision_lr(b);
+				b.setPosition(blockx - (BLOCK_SIZE / 2 + BALL_RAD), bally);
+				collision_left(b);
 			//좌측충돌
 			}
 			else

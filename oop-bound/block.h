@@ -27,8 +27,6 @@ public:
 	FlagBlock();
 	~FlagBlock();
 	void collision_top(Ball& b);
-	void collision_lr(Ball& b);
-	void collision_bottom(Ball& b);
 };
 
 class BombBlock : public BaseBlock {
