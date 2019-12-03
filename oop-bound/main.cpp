@@ -18,12 +18,17 @@ int main()
 	Ball ball;
 
 	for (int i = 0; i < stage.getSize().y; i++) {
-		stage.setAt(i, 15, new BreakBlock());
-		stage.setAt(i + 2, 16, new BombBlock());
+		stage.setAt(i, 15, new DefaultBlock());
+		stage.setAt(i + 2, 16, new DefaultBlock());
 	}
+	stage.deleteAt(0, 15);
+	stage.deleteAt(1, 15);
+	stage.deleteAt(2, 15);
+	stage.deleteAt(3, 15);
+	stage.deleteAt(4, 15);
 
-
-	ball.setPosition(20 , WINDOW_HEIGHT / 2);
+	ball.setPosition(60.8800087f, 270.f);
+	ball.setSpeed(0.f, -.4f);
 	//ball.setSpeed(1.0f / 1800, 0);
 	// run the program as long as the window is open
 	while (window.isOpen())
@@ -51,13 +56,13 @@ int main()
 			ball.setRkPressed(false);
 		}
 		//collision between ball and blocks
-		int ballGridX = ball.getPosition().x / BLOCK_SIZE;
-		int ballGridY = ball.getPosition().y / BLOCK_SIZE;
+		int ballGridX = int(ball.getPosition().x) / BLOCK_SIZE;
+		int ballGridY = int(ball.getPosition().y) / BLOCK_SIZE;
 
-		for (int i = ballGridX - 1; i < ballGridX + 1; i++) {
-			for (int j = ballGridY - 1; j < ballGridY + 1; j++) {
-				if (i >= 0 && i < NUM_BLOCK_WIDTH)
-					if (j >= 0 && j < NUM_BLOCK_HEIGHT)
+		for (int i = ballGridX - 2; i <= ballGridX +2 ; i++) {
+			for (int j = ballGridY - 2; j <= ballGridY + 2; j++) {
+				if(i >= 0 && i < stage.getSize().x)
+					if(j >= 0 && j < stage.getSize().y)
 						stage.getAt(i, j)->collision_check(ball);
 			}
 		}

@@ -127,14 +127,14 @@ bool BaseBlock::collision_check(Ball& b)
 		}
 		else
 		{
-			if (ndiffy>=0&&( ndiffx==0 || (abs(ndiffy)>=abs(ndiffx)) ) )
+			if (ndiffy>=0&&( ndiffx==0 || ndiffy>0 ) )
 			{
 			 //위쪽충돌
 				b.setPosition(ballx, blocky + (BLOCK_SIZE / 2 + BALL_RAD));
 				collision_bottom(b);
 			
 			}
-			else if (ndiffy <= 0 && (ndiffx == 0 || (abs(ndiffy) >= abs(ndiffx)) ) )
+			else if (ndiffy <= 0 && (ndiffx == 0 || ndiffy<0)  )
 			{
 			
 			//아래충돌
@@ -142,21 +142,21 @@ bool BaseBlock::collision_check(Ball& b)
 				collision_top(b);
 			
 			}
-			else if (ndiffx >= 0 && (ndiffy == 0 || (abs(ndiffx) >= abs(ndiffy))))
+			else if (ndiffx >= 0 && (ndiffy == 0 ))
 			{
 			//우측충돌
 
 
-				b.setPosition(blockx + (BLOCK_SIZE / 2 + BALL_RAD), bally);
+				b.setPosition(blockx + (BLOCK_SIZE / 2 + BALL_RAD), bally-0.1);
 				collision_right(b);
 
 			
 			}
-			else if (ndiffx <= 0 && (ndiffy == 0 || (abs(ndiffx) >= abs(ndiffy))))
+			else if (ndiffx <= 0 && (ndiffy == 0 ))
 			{
 
 
-				b.setPosition(blockx - (BLOCK_SIZE / 2 + BALL_RAD), bally);
+				b.setPosition(blockx - (BLOCK_SIZE / 2 + BALL_RAD), bally-0.1);
 				collision_left(b);
 
 			//좌측충돌
