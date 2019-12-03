@@ -70,8 +70,18 @@ sf::Vector2<float> Ball::getSpeed() const {
 
 void Ball::update()
 {
-	if(lKeyPressed) setSpeed(getSpeed() - sf::Vector2f(0.015f, 0.f));
-	else if(rKeyPressed) setSpeed(getSpeed() + sf::Vector2f(0.015f, 0.f));
+	if (lKeyPressed) {
+		if (getSpeed().x > 0) {
+			setSpeed(getSpeed() - sf::Vector2f(0.03f, 0.f));
+		}
+		else setSpeed(getSpeed() - sf::Vector2f(0.015f, 0.f));
+	}
+	else if (rKeyPressed) {
+		if (getSpeed().x < 0) {
+			setSpeed(getSpeed() + sf::Vector2f(0.03f, 0.f));
+		}
+		else setSpeed(getSpeed() + sf::Vector2f(0.015f, 0.f));
+	}
 	else setSpeed(getSpeed().x * 0.1f, getSpeed().y);
 	setSpeed(getSpeed().x, getSpeed().y + 0.02f);
 	setPosition(getPosition() + sf::Vector2<float>(BLOCK_SIZE * getSpeed().x, BLOCK_SIZE * getSpeed().y));
