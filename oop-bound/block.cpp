@@ -54,7 +54,7 @@ FlagBlock::~FlagBlock()
 }
 
 void FlagBlock::collision_top(Ball& b) {
-
+	return BaseBlock::collision_top(b);
 }
 void FlagBlock::collision_lr(Ball& b) {
 
@@ -72,7 +72,7 @@ BombBlock::BombBlock()
 }
 
 void BombBlock::collision_top(Ball& b) {
-
+	b.setSpeed(b.getSpeed().x, -.4f);
 }
 
 BombBlock::~BombBlock()

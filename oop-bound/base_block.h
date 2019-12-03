@@ -20,9 +20,9 @@ private:
 public:
 	BaseBlock();
 	virtual ~BaseBlock();
-	virtual void collision_top(Ball& b) { b.setSpeed(b.getSpeed().x, -b.getSpeed().y); };
-	virtual void collision_lr(Ball& b) { b.setSpeed(-b.getSpeed().x, b.getSpeed().y); };
-	virtual void collision_bottom(Ball& b) { b.setSpeed(b.getSpeed().x, -b.getSpeed().y); };
+	virtual void collision_top(Ball& b);
+	virtual void collision_lr(Ball& b);
+	virtual void collision_bottom(Ball& b);
 	
 	virtual bool collision_check(Ball& b);
 	bool setTexture(std::string filename);

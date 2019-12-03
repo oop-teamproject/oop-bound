@@ -14,6 +14,19 @@ BaseBlock::~BaseBlock()
 {
 }
 
+void BaseBlock::collision_top(Ball& b) {
+	b.setSpeed(b.getSpeed().x, -.4f);
+}
+
+void BaseBlock::collision_lr(Ball& b) {
+	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
+}
+
+void BaseBlock::collision_bottom(Ball& b) {
+	b.setSpeed(b.getSpeed().x, -b.getSpeed().y);
+}
+
+
 bool BaseBlock::collision_check(Ball& b)
 {
 
