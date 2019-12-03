@@ -30,7 +30,7 @@ int main()
 		block[i]->setPositionToGrid(i - 1, 15);
 	}
 	block[0]->setPositionToGrid(0, 0);
-	ball.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	ball.setPosition(20 , WINDOW_HEIGHT / 2);
 	//ball.setSpeed(1.0f / 1800, 0);
 	// run the program as long as the window is open
 	while (window.isOpen())
@@ -57,7 +57,9 @@ int main()
 			ball.setLkPressed(false);
 			ball.setRkPressed(false);
 		}
-
+		for (int i = 0; i < 10; i++) {
+			block[i]->collision_check(ball);
+	}
 
 		// clear the window with black color
 		window.clear(sf::Color::Black);
