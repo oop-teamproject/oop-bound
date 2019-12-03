@@ -13,23 +13,15 @@ int main()
 	icon.loadFromFile("image/ball.png");
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Catch the flag!!");
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-	BaseBlock* block[10];
+	
+	Stage stage;
 	Ball ball;
-	for (int i = 0; i < 3; i++) {
-		block[i] = new DefaultBlock();
-		block[i]->setPositionToGrid(i - 1, 15);
+
+	for (int i = 0; i < stage.getSize().y; i++) {
+		stage.setAt(i, 15, new BreakBlock());
 	}
-	for (int i = 3; i < 6; i++) {
-		block[i] = new BreakBlock();
-		block[i]->setPositionToGrid(i - 1, 15);
-	}
-	block[6] = new FlagBlock();
-	block[6]->setPositionToGrid(5, 15);
-	for (int i = 7; i < 10; i++) {
-		block[i] = new BombBlock();
-		block[i]->setPositionToGrid(i - 1, 15);
-	}
-	block[0]->setPositionToGrid(0, 0);
+
+
 	ball.setPosition(20 , WINDOW_HEIGHT / 2);
 	//ball.setSpeed(1.0f / 1800, 0);
 	// run the program as long as the window is open
@@ -57,27 +49,26 @@ int main()
 			ball.setLkPressed(false);
 			ball.setRkPressed(false);
 		}
-		for (int i = 0; i < 10; i++) {
-			block[i]->collision_check(ball);
-	}
+		//collision between ball and blocks
+		int ballGridX = ball.getPosition().x / BLOCK_SIZE;
+		int ballGridY = ball.getPosition().y / BLOCK_SIZE;
 
+		for (int i = ballGridX - 1; i < ballGridX + 1; i++) {
+			for (int j = ballGridY - 1; j < ballGridY + 1; j++) {
+				if (i >= 0 && i < NUM_BLOCK_WIDTH)
+					if (j >= 0 && j < NUM_BLOCK_HEIGHT)
+						stage.getAt(i, j)->collision_check(ball);
+			}
+		}
 		// clear the window with black color
 		window.clear(sf::Color::Black);
-		for (int i = 0; i < 10; i++) {
-			block[i]->draw(window);
-		}
 		ball.draw(window);
-		((BreakBlock*)block[5])->breakSelf();
 		ball.update();
 		// end the current frame
+		stage.draw(window);
 		window.display();
 		window.setFramerateLimit(60);
 	}
 
-	for (int i = 0; i < 10; i++) {
-		delete block[i];
-		block[i] = NULL;
-	}
 	return 0;
-
 }

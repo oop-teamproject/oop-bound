@@ -18,7 +18,11 @@ void BaseBlock::collision_top(Ball& b) {
 	b.setSpeed(b.getSpeed().x, -.4f);
 }
 
-void BaseBlock::collision_lr(Ball& b) {
+void BaseBlock::collision_left(Ball& b) {
+	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
+}
+
+void BaseBlock::collision_right(Ball& b) {
 	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
 }
 
@@ -92,13 +96,11 @@ bool BaseBlock::collision_check(Ball& b)
 			{
 				//안쪽 오른쪽겹친파트
 				b.setPosition(blockx+ (BLOCK_SIZE / 2 + BALL_RAD), bally);
-				collision_lr(b);
 			}
 			else if (diffx >= diffy && abs(diffx) >= abs(diffy))
 			{
 				//안쪽왼쪽겹친파트
 				b.setPosition(blockx - (BLOCK_SIZE / 2 + BALL_RAD), bally);
-				collision_lr(b);
 			}
 			else
 			{
@@ -125,12 +127,10 @@ bool BaseBlock::collision_check(Ball& b)
 			else if (ndiffx >= 0 && (ndiffy == 0 || (abs(ndiffx) >= abs(ndiffy))))
 			{
 			//우측충돌
-				collision_lr(b);
 			
 			}
 			else if (ndiffx <= 0 && (ndiffy == 0 || (abs(ndiffx) >= abs(ndiffy))))
 			{
-				collision_lr(b);
 			//좌측충돌
 			}
 			else

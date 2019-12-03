@@ -21,7 +21,8 @@ public:
 	BaseBlock();
 	virtual ~BaseBlock();
 	virtual void collision_top(Ball& b);
-	virtual void collision_lr(Ball& b);
+	virtual void collision_left(Ball& b);
+	virtual void collision_right(Ball& b);
 	virtual void collision_bottom(Ball& b);
 	
 	virtual bool collision_check(Ball& b);

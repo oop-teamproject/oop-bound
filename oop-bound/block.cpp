@@ -56,12 +56,6 @@ FlagBlock::~FlagBlock()
 void FlagBlock::collision_top(Ball& b) {
 	return BaseBlock::collision_top(b);
 }
-void FlagBlock::collision_lr(Ball& b) {
-
-}
-void FlagBlock::collision_bottom(Ball& b) {
-
-}
 
 BombBlock::BombBlock()
 {

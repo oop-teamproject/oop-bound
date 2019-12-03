@@ -1,22 +1,27 @@
 #include "stage.h"
+#include <assert.h>
 
 Stage::Stage() {
-	map = new BaseBlock * [width];
-	for (int i = 0; i < height; i++) {
-		map[i] = new BaseBlock;
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			map[i][j] = new AirBlock();
+			map[i][j]->setPositionToGrid(i, j);
+		}
 	}
 }
 
 Stage::Stage(const std::string& filename): Stage(){
+	assert(false); //지금은 여기를 쓸 수 없다.
 	loadFromFile(filename);
 }
 
 Stage::~Stage() {
-	for (int i = 0; i < height; i++) {
-		delete[] map[i];
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			delete map[i][j];
+			map[i][j] = NULL;
+		}
 	}
-	delete[] map;
-	map = NULL;
 }
 
 bool Stage::loadFromFile(const std::string& filename)
@@ -31,13 +36,23 @@ bool Stage::writeToFile(const std::string& filename)
 
 bool Stage::deleteAt(int a, int b)
 {
-	map[a][b] = AirBlock();
+	delete map[a][b];
+	map[a][b] = new AirBlock();
+	map[a][b]->setPositionToGrid(a, b);
 	return true;
 }
 
-bool Stage::SetAt(int a, int b, BaseBlock* block) {
-	if (block == NULL)
-		return false;
-	map[a][b] = *block;
+bool Stage::setAt(int a, int b, const BaseBlock* block) {
+	delete map[a][b];
+	map[a][b] = new BaseBlock(*block);
+	map[a][b]->setPositionToGrid(a, b);
 	return true;
+}
+
+void Stage::draw(sf::RenderWindow& window) {
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+				map[i][j]->draw(window);
+		}
+	}
 }
