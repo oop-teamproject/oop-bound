@@ -42,9 +42,9 @@ bool Stage::deleteAt(int a, int b)
 	return true;
 }
 
-bool Stage::setAt(int a, int b, const BaseBlock* block) {
+bool Stage::setAt(int a, int b, BaseBlock* block) {
 	delete map[a][b];
-	map[a][b] = new BaseBlock(*block);
+	map[a][b] = block;
 	map[a][b]->setPositionToGrid(a, b);
 	return true;
 }

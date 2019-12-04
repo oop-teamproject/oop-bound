@@ -18,7 +18,7 @@ public:
 	bool writeToFile(const std::string& filename); //파일에 스테이지를 쓴다. 성공 여부를 반환
 	sf::Vector2<int> getSize() { return sf::Vector2<int>(width, height); }
 	bool deleteAt(int a, int b);
-	bool setAt(int a, int b, const BaseBlock* block);
+	bool setAt(int a, int b, BaseBlock* block);
 	BaseBlock* getAt(int a, int b) { return map[a][b]; }
 	void draw(sf::RenderWindow& window);
 };

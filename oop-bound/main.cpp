@@ -18,7 +18,7 @@ int main()
 	Ball ball;
 
 	for (int i = 0; i < stage.getSize().y; i++) {
-		stage.setAt(i, 15, new DefaultBlock());
+		stage.setAt(i, 15, new BreakBlock());
 		stage.setAt(i + 2, 16, new DefaultBlock());
 	}
 	stage.deleteAt(0, 15);
