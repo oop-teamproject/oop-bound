@@ -13,13 +13,19 @@ int main()
 	icon.loadFromFile("image/ball.png");
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Catch the flag!!");
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-	
+
 	Stage stage;
 	Ball ball;
 
-	for (int i = 0; i < stage.getSize().y; i++) {
-		stage.setAt(i, 15, new BreakBlock());
+	for (int i = 0; i < stage.getSize().x; i++) {
+		if (i % 2)
+			stage.setAt(i, 15, new BreakBlock());
+		else stage.setAt(i, 15, new BombBlock());
 		stage.setAt(i + 2, 16, new DefaultBlock());
+	}
+	for (int i = 5; i < stage.getSize().y - 7; i++) {
+		stage.setAt(22, i, new DefaultBlock());
+		stage.setAt(29, i, new DefaultBlock());
 	}
 	stage.deleteAt(0, 15);
 	stage.deleteAt(1, 15);

@@ -36,6 +36,8 @@ bool Stage::writeToFile(const std::string& filename)
 
 bool Stage::deleteAt(int a, int b)
 {
+	if (a >= width || a < 0) return false;
+	if (b >= height || b < 0) return false;
 	delete map[a][b];
 	map[a][b] = new AirBlock();
 	map[a][b]->setPositionToGrid(a, b);
@@ -43,6 +45,8 @@ bool Stage::deleteAt(int a, int b)
 }
 
 bool Stage::setAt(int a, int b, BaseBlock* block) {
+	if (a >= width || a < 0) return false;
+	if (b >= height || b < 0) return false;
 	delete map[a][b];
 	map[a][b] = block;
 	map[a][b]->setPositionToGrid(a, b);
