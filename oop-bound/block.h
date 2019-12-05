@@ -35,6 +35,9 @@ class BombBlock : public BaseBlock {
 public:
 	BombBlock();
 	void collision_top(Ball& b);
+	void collision_right(Ball& b);
+	void collision_left(Ball& b);
+	void collision_bottom(Ball& b);
 	bool collision_check(Ball& b);
 	~BombBlock();
 	void draw(sf::RenderWindow& window);

@@ -1,7 +1,6 @@
 #include "main.h"
 #include "ball.h"
 
-#define __BALL_DEBUG__
 Ball::Ball()
 {
 	if (!texture.loadFromFile("image/ball.png")) {
@@ -85,10 +84,7 @@ void Ball::update()
 	else setSpeed(getSpeed().x * 0.1f, getSpeed().y);
 	setSpeed(getSpeed().x, getSpeed().y + 0.02f);
 	setPosition(getPosition() + sf::Vector2<float>(BLOCK_SIZE * getSpeed().x, BLOCK_SIZE * getSpeed().y));
-#ifdef __BALL_DEBUG__
-	if (getPosition().y > WINDOW_HEIGHT - BALL_RAD - 20) { setSpeed(getSpeed().x, -.4f); setPosition(getPosition().x, WINDOW_HEIGHT - BALL_RAD - 19); } //¹Ù´Ú Å×½ºÆ®.
-	// if (getPosition().y < WINDOW_HEIGHT - BALL_RAD - 50) { setSpeed(getSpeed().x,  .4f); setPosition(getPosition().x, WINDOW_HEIGHT - BALL_RAD - 51); } //Á¼Àº Æ´»õ Å×½ºÆ®.
-#endif
+
 }
 
 void Ball::draw(sf::RenderWindow& window)

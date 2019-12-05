@@ -72,6 +72,21 @@ void BombBlock::collision_top(Ball& b) {
 	b.setSpeed(b.getSpeed().x, -.4f);
 	setTexture("image/explosion.png");
 }
+void BombBlock::collision_right(Ball& b) {
+	exploded = true;
+	b.setSpeed(b.getSpeed().x, -.4f);
+	setTexture("image/explosion.png");
+}
+void BombBlock::collision_left(Ball& b) {
+	exploded = true;
+	b.setSpeed(b.getSpeed().x, -.4f);
+	setTexture("image/explosion.png");
+}
+void BombBlock::collision_bottom(Ball& b) {
+	exploded = true;
+	b.setSpeed(b.getSpeed().x, -.4f);
+	setTexture("image/explosion.png");
+}
 
 bool BombBlock::collision_check(Ball& b) {
 	if (!exploded)
