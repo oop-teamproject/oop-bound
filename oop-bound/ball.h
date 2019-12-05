@@ -7,8 +7,8 @@
 #define BALL_RAD 10
 #define BALL_MAX_SPEED_X 0.3f
 #define BALL_MIN_SPEED_X -0.3f
-#define BALL_MAX_SPEED_Y 0.6f
-#define BALL_MIN_SPEED_Y -0.6f
+#define BALL_MAX_SPEED_Y 0.55f
+#define BALL_MIN_SPEED_Y -0.55f
 
 class Ball {
 private:
