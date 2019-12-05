@@ -1,10 +1,7 @@
 #include "block.h"
 
 DefaultBlock::DefaultBlock() {
-	BaseBlock();
-	if (setTexture("image/default.png")) {
-		//error
-	}
+	setTexture("image/default.png");
 }
 
 DefaultBlock::~DefaultBlock() {
@@ -12,10 +9,7 @@ DefaultBlock::~DefaultBlock() {
 }
 
 BreakBlock::BreakBlock() {
-	BaseBlock();
-	if (setTexture("image/break.png")) {
-		//error
-	}
+	setTexture("image/break.png");
 	broken = false;
 }
 
@@ -43,10 +37,7 @@ void BreakBlock::breakSelf() {
 
 FlagBlock::FlagBlock()
 {
-	BaseBlock();
-	if (setTexture("image/flag.png")) {
-		//error
-	}
+	setTexture("image/flag.png");
 }
 
 FlagBlock::~FlagBlock()
@@ -59,12 +50,9 @@ void FlagBlock::collision_top(Ball& b) {
 
 BombBlock::BombBlock()
 {
-	BaseBlock();
 	exploded = false;
 	explodeScale = 1.f;
-	if (setTexture("image/bomb.png")) {
-		//error
-	}
+	setTexture("image/bomb.png");
 }
 
 void BombBlock::collision_top(Ball& b) {

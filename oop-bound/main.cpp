@@ -6,35 +6,16 @@
 
 int main()
 {
-
-	//block size = 30px * 30px
-	// create the window
 	sf::Image icon;
 	icon.loadFromFile("image/ball.png");
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Catch the flag!!");
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-	Stage stage;
+
+	Stage stage("stage/stage1.txt");
 	Ball ball;
+	ball.setPosition(stage.getStartPoint().x * BLOCK_SIZE + BLOCK_SIZE / 2, stage.getStartPoint().y * BLOCK_SIZE + BLOCK_SIZE / 2);
 
-	for (int i = 0; i < stage.getSize().x; i++) {
-		if (i % 2)
-			stage.setAt(i, 15, new BreakBlock());
-		else stage.setAt(i, 15, new JumpBlock());
-		stage.setAt(i + 2, 16, new DefaultBlock());
-	}
-	for (int i = 5; i < stage.getSize().y - 7; i++) {
-		stage.setAt(22, i, new DefaultBlock());
-		stage.setAt(29, i, new DefaultBlock());
-	}
-	stage.setAt(29, 15, new BombBlock());
-	stage.deleteAt(0, 15);
-	stage.deleteAt(1, 15);
-	stage.deleteAt(2, 15);
-	stage.deleteAt(3, 15);
-	stage.deleteAt(4, 15);
-
-	ball.setPosition(60.8800087f, 270.f);
 	ball.setSpeed(0.f, -.4f);
 	//ball.setSpeed(1.0f / 1800, 0);
 	// run the program as long as the window is open
@@ -66,8 +47,8 @@ int main()
 		int ballGridX = int(ball.getPosition().x) / BLOCK_SIZE;
 		int ballGridY = int(ball.getPosition().y) / BLOCK_SIZE;
 
-		for (int i = ballGridX - 2; i <= ballGridX +2 ; i++) {
-			for (int j = ballGridY - 2; j <= ballGridY + 2; j++) {
+		for (int i = ballGridX - 1; i <= ballGridX + 1 ; i++) {
+			for (int j = ballGridY - 1; j <= ballGridY + 1; j++) {
 				if(i >= 0 && i < stage.getSize().x)
 					if(j >= 0 && j < stage.getSize().y)
 						stage.getAt(i, j)->collision_check(ball);
