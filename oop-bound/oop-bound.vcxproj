@@ -133,6 +133,7 @@
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="base_block.cpp" />
     <ClCompile Include="block.cpp" />
+    <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stage.cpp" />
   </ItemGroup>
@@ -140,6 +141,8 @@
     <ClInclude Include="ball.h" />
     <ClInclude Include="base_block.h" />
     <ClInclude Include="block.h" />
+    <ClInclude Include="blocktoken.h" />
+    <ClInclude Include="level.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="stage.h" />
   </ItemGroup>

@@ -6,9 +6,6 @@
 
 int main()
 {
-
-	//block size = 30px * 30px
-	// create the window
 	sf::Image icon;
 	icon.loadFromFile("image/ball.png");
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Catch the flag!!");
@@ -54,7 +51,9 @@ int main()
 	
 
 
-	ball.setPosition(5*BLOCK_SIZE, 18 * BLOCK_SIZE);
+	stage.setStartPoint(5, 18);
+	ball.setPosition(stage.getStartPoint().x * BLOCK_SIZE + BLOCK_SIZE / 2, stage.getStartPoint().y * BLOCK_SIZE + BLOCK_SIZE / 2);
+
 	ball.setSpeed(0.f, -.4f);
 	//ball.setSpeed(1.0f / 1800, 0);
 	// run the program as long as the window is open
@@ -86,8 +85,8 @@ int main()
 		int ballGridX = int(ball.getPosition().x) / BLOCK_SIZE;
 		int ballGridY = int(ball.getPosition().y) / BLOCK_SIZE;
 
-		for (int i = ballGridX - 2; i <= ballGridX +2 ; i++) {
-			for (int j = ballGridY - 2; j <= ballGridY + 2; j++) {
+		for (int i = ballGridX - 1; i <= ballGridX + 1 ; i++) {
+			for (int j = ballGridY - 1; j <= ballGridY + 1; j++) {
 				if(i >= 0 && i < stage.getSize().x)
 					if(j >= 0 && j < stage.getSize().y)
 						stage.getAt(i, j)->collision_check(ball);

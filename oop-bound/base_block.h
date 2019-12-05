@@ -5,6 +5,7 @@
 #include "main.h"
 #include <tuple>
 #include "Ball.h"
+#include "blocktoken.h"
 
 class BaseBlock {
 private:
@@ -31,6 +32,7 @@ public:
 	void setPosition(int x, int y);
 	void setPositionToGrid(int x, int y);
 	sf::Vector2<int> getPosition();
+	virtual char getFileToken() = 0;
 };
 
 class AirBlock: public BaseBlock{
@@ -39,5 +41,6 @@ public:
 	~AirBlock() {}
 	virtual bool collision_check(Ball& b) { return false; /*Do Nothing*/ }
 	void draw(sf::RenderWindow& window) { /*Do Nothing*/ }
+	char getFileToken() { return TOKEN_AIRBLOCK; }
 };
 #endif
