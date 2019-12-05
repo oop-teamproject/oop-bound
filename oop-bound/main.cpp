@@ -11,49 +11,9 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Catch the flag!!");
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-	Stage stage;
+	Stage stage("stage/stage2.txt");
 	Ball ball;
-	for (int i = 10; i < 20; i++)
-	{
-		stage.setAt(3, i, new BombBlock());
-	}
-	for (int i = 0; i < 16; i++)
-	{
-		stage.setAt(10, i, new DefaultBlock());
-	}
-	for (int i = 10; i < 20; i = i + 2)
-	{
-		stage.setAt(4, i ,new DefaultBlock());
-	}
-	for (int i = 10; i < 20; i++)
-	{
-		stage.setAt(6, i, new BombBlock());
-	}
-	for (int i = 1; i < 20; i++)
-	{
-		stage.setAt(i, 19, new DefaultBlock());
-	}
-	stage.setAt(10, 16, new BombBlock());
-	
-	stage.setAt(12, 16, new BombBlock());
-	stage.setAt(10, 16, new BombBlock());
-	stage.setAt(0, 16, new BombBlock());
-	stage.setAt(20, 18, new BombBlock());
-	for (int i = 17; i > 6; i--)
-	{
-
-		stage.setAt(13, i, new DefaultBlock());
-	}
-	for (int i = 17; i > 6; i--) {
-	stage.setAt(15, i, new DefaultBlock());
-}
-	stage.setAt(29, 14, new FlagBlock());
-	
-
-
-	stage.setStartPoint(5, 18);
 	ball.setPosition(stage.getStartPoint().x * BLOCK_SIZE + BLOCK_SIZE / 2, stage.getStartPoint().y * BLOCK_SIZE + BLOCK_SIZE / 2);
-
 	ball.setSpeed(0.f, -.4f);
 	//ball.setSpeed(1.0f / 1800, 0);
 	// run the program as long as the window is open
