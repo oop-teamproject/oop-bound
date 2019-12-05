@@ -85,8 +85,20 @@ BombBlock::~BombBlock()
 
 void BombBlock::draw(sf::RenderWindow& window)
 {
-	if (exploded)
-		explodeScale *= 1.5f;
-	setTexture("image/explode.png", explodeScale);
+	if (exploded) {
+		explodeScale *= 1.15f;
+		setTexture("image/explosion.png", explodeScale);
+	}
 	BaseBlock::draw(window);
+}
+
+JumpBlock::JumpBlock()
+{
+	setTexture("image/jump.png");
+}
+
+JumpBlock::~JumpBlock() { }
+
+void JumpBlock::collision_top(Ball& b) {
+	b.setSpeed(b.getSpeed().x, -.8f);
 }

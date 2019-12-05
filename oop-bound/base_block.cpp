@@ -140,7 +140,7 @@ bool BaseBlock::setTexture(std::string filename, float scale)
 		return false;
 	sprite.setTexture(texture, true);
 	sprite.setScale(scale, scale);
-	sprite.setPosition((float)position.x - texture.getSize().x / 2, (float)position.y - texture.getSize().y / 2);
+	sprite.setPosition((float)position.x - (texture.getSize().x / 2) * sprite.getScale().x, (float)position.y - texture.getSize().y / 2 * sprite.getScale().y);
 	return true;
 }
 

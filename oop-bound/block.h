@@ -39,4 +39,11 @@ public:
 	~BombBlock();
 	void draw(sf::RenderWindow& window);
 };
+
+class JumpBlock : public BaseBlock {
+public:
+	JumpBlock();
+	~JumpBlock();
+	void collision_top(Ball& b);
+};
 #endif
