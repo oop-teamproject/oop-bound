@@ -26,7 +26,7 @@ public:
 	virtual void collision_bottom(Ball& b);
 	
 	virtual bool collision_check(Ball& b);
-	bool setTexture(std::string filename);
+	bool setTexture(std::string filename, float scale = 1.f);
 	virtual void draw(sf::RenderWindow& window);
 	void setPosition(int x, int y);
 	void setPositionToGrid(int x, int y);

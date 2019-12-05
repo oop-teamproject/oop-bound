@@ -4,7 +4,7 @@ BaseBlock::BaseBlock()
 {
 
 	position.x = position.y = 0;
-	if (setTexture("image/base.png")) {
+	if (!setTexture("image/base.png")) {
 		//error
 	}
 	sprite.setPosition((float)BLOCK_SIZE * position.x, (float)BLOCK_SIZE * position.y);
@@ -134,11 +134,13 @@ bool BaseBlock::collision_check(Ball& b)
 	return false;
 }
 
-bool BaseBlock::setTexture(std::string filename)
+bool BaseBlock::setTexture(std::string filename, float scale)
 {
 	if (!texture.loadFromFile(filename))
 		return false;
 	sprite.setTexture(texture, true);
+	sprite.setScale(scale, scale);
+	sprite.setPosition((float)position.x - texture.getSize().x / 2, (float)position.y - texture.getSize().y / 2);
 	return true;
 }
 

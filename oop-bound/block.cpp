@@ -60,15 +60,33 @@ void FlagBlock::collision_top(Ball& b) {
 BombBlock::BombBlock()
 {
 	BaseBlock();
+	exploded = false;
+	explodeScale = 1.f;
 	if (setTexture("image/bomb.png")) {
 		//error
 	}
 }
 
 void BombBlock::collision_top(Ball& b) {
+	exploded = true;
 	b.setSpeed(b.getSpeed().x, -.4f);
+	setTexture("image/explosion.png");
+}
+
+bool BombBlock::collision_check(Ball& b) {
+	if (!exploded)
+		return BaseBlock::collision_check(b);
+	else return false;
 }
 
 BombBlock::~BombBlock()
 {
+}
+
+void BombBlock::draw(sf::RenderWindow& window)
+{
+	if (exploded)
+		explodeScale *= 1.5f;
+	setTexture("image/explode.png", explodeScale);
+	BaseBlock::draw(window);
 }

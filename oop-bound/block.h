@@ -30,9 +30,13 @@ public:
 };
 
 class BombBlock : public BaseBlock {
+	bool exploded;
+	float explodeScale;
 public:
 	BombBlock();
 	void collision_top(Ball& b);
+	bool collision_check(Ball& b);
 	~BombBlock();
+	void draw(sf::RenderWindow& window);
 };
 #endif
