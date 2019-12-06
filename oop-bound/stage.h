@@ -7,13 +7,15 @@
 
 class Stage {
 	sf::Vector2<int> startpoint;
-	BaseBlock* map[NUM_BLOCK_WIDTH][NUM_BLOCK_HEIGHT];
+	BaseBlock* map[NUM_BLOCK_WIDTH][NUM_BLOCK_HEIGHT] = {NULL,};
 	int width = NUM_BLOCK_WIDTH;
 	int height = NUM_BLOCK_HEIGHT;
 
 public:
 	Stage();
 	Stage(const std::string& filename); // Stage() + loadFromFile()±â´É.
+	Stage& operator=(const Stage&);
+
 	virtual ~Stage();
 	
 	bool deleteAt(int a, int b);
