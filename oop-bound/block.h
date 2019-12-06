@@ -10,6 +10,33 @@ public:
 	char getFileToken() { return TOKEN_DEFAULTBLOCK; }
 };
 
+class SwitchBlock : public BaseBlock {
+	bool switchpressed;
+public:
+	SwitchBlock(bool b = true);
+	~SwitchBlock();
+	void collision_top(Ball& b);
+	void collision_right(Ball& b);
+	void collision_left(Ball& b);
+	void collision_bottom(Ball& b);
+	void hitswitch();
+	bool getState();
+	
+	char getFileToken() { return TOKEN_DEFAULTBLOCK; }
+};
+
+class OnoffBlock : public BaseBlock {
+bool switchpressed;
+
+
+public:
+	OnoffBlock(bool b = true);
+	~OnoffBlock();
+	
+	bool collision_check(Ball& b);
+	char getFileToken() { return TOKEN_DEFAULTBLOCK; }
+};
+
 class BreakBlock : public BaseBlock {
 bool broken;
 
@@ -37,12 +64,12 @@ class BombBlock : public BaseBlock {
 	float explodeScale;
 public:
 	BombBlock();
+	~BombBlock();
 	void collision_top(Ball& b);
 	void collision_right(Ball& b);
 	void collision_left(Ball& b);
 	void collision_bottom(Ball& b);
 	bool collision_check(Ball& b);
-	~BombBlock();
 	void draw(sf::RenderWindow& window);
 	char getFileToken() { return TOKEN_BOMBBLOCK; }
 };

@@ -8,6 +8,72 @@ DefaultBlock::~DefaultBlock() {
 
 }
 
+SwitchBlock::SwitchBlock(bool on) {
+
+	setTexture("image/onswitch.png");
+}
+SwitchBlock::~SwitchBlock() {
+
+}
+
+void SwitchBlock::hitswitch() {
+	switchpressed = !getState();
+	if (getState()) {
+		setTexture("image/onswitch.png");
+	}
+	else {
+		setTexture("image/offswitch.png");
+	}
+}
+
+
+bool SwitchBlock::getState() {
+	return switchpressed;
+}
+
+void SwitchBlock::collision_top(Ball& b) {
+	b.setSpeed(b.getSpeed().x, -.4f);
+	hitswitch();
+}
+void SwitchBlock::collision_right(Ball& b) {
+	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
+	hitswitch();
+}
+void SwitchBlock::collision_left(Ball& b) {
+	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
+	hitswitch();
+}
+void SwitchBlock::collision_bottom(Ball& b) {
+	b.setSpeed(b.getSpeed().x, -b.getSpeed().y);
+	hitswitch();
+}
+
+OnoffBlock::OnoffBlock(bool on) {
+	
+	switchpressed = on;
+	if(switchpressed == true)
+	{
+		setTexture("image/on.png");
+	}
+	if (switchpressed == false)
+	{
+		setTexture("image/off.png");
+	}
+	
+}
+OnoffBlock::~OnoffBlock() {
+
+}
+bool OnoffBlock::collision_check(Ball& b)
+{
+	if (switchpressed == true) {
+		BaseBlock::collision_check(b);
+		return true;
+	}
+	else return false;
+}
+
+
 BreakBlock::BreakBlock() {
 	setTexture("image/break.png");
 	broken = false;
@@ -62,17 +128,17 @@ void BombBlock::collision_top(Ball& b) {
 }
 void BombBlock::collision_right(Ball& b) {
 	exploded = true;
-	b.setSpeed(b.getSpeed().x, -.4f);
+	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
 	setTexture("image/explosion.png");
 }
 void BombBlock::collision_left(Ball& b) {
 	exploded = true;
-	b.setSpeed(b.getSpeed().x, -.4f);
+	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
 	setTexture("image/explosion.png");
 }
 void BombBlock::collision_bottom(Ball& b) {
 	exploded = true;
-	b.setSpeed(b.getSpeed().x, -.4f);
+	b.setSpeed(b.getSpeed().x, -b.getSpeed().y);
 	setTexture("image/explosion.png");
 }
 
