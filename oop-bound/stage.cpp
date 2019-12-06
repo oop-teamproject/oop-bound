@@ -7,13 +7,30 @@ Stage::Stage() {
 		for (int j = 0; j < height; j++) {
 			map[i][j] = new AirBlock();
 			map[i][j]->setPositionToGrid(i, j);
+			drawlist.clear();
 		}
 	}
 }
 
 Stage::Stage(const std::string& filename): Stage(){
-	Stage();
 	loadFromFile(filename);
+}
+
+Stage::Stage(Stage& stage) {
+	*this = stage;
+}
+Stage& Stage::operator=(Stage& stage)
+{
+	startpoint = stage.getStartPoint();
+	for (int i = 0;i < width;i++) {
+		for (int j = 0;j < height;j++) {
+			delete map[i][j];
+			map[i][j] = stage.getAt(i, j) ->clonePtr();
+			if (map[i][j]->getFileToken() != '0') //airblock이 아닌 경우
+				drawlist.push_back(map[i][j]);
+		}
+	}
+	return *this;
 }
 
 Stage::~Stage() {
@@ -83,6 +100,8 @@ bool Stage::deleteAt(int a, int b)
 {
 	if (a >= width || a < 0) return false;
 	if (b >= height || b < 0) return false;
+	if (map[a][b] == NULL) return false;
+	drawlist.remove(map[a][b]);
 	delete map[a][b];
 	map[a][b] = new AirBlock();
 	map[a][b]->setPositionToGrid(a, b);
@@ -90,11 +109,11 @@ bool Stage::deleteAt(int a, int b)
 }
 
 bool Stage::setAt(int a, int b, BaseBlock* block) {
-	if (a >= width || a < 0) return false;
-	if (b >= height || b < 0) return false;
-	delete map[a][b];
+	deleteAt(a, b);
 	map[a][b] = block;
 	map[a][b]->setPositionToGrid(a, b);
+	if(block->getFileToken() != '0')
+		drawlist.push_back(map[a][b]);
 	return true;
 }
 
@@ -123,9 +142,6 @@ bool Stage::setStartPoint(sf::Vector2<int>& pt)
 
 
 void Stage::draw(sf::RenderWindow& window) {
-	for (int i = 0; i < width; i++) {
-		for (int j = 0; j < height; j++) {
-				map[i][j]->draw(window);
-		}
-	}
+	for (auto& i : drawlist)
+		i->draw(window);
 }

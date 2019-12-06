@@ -4,27 +4,32 @@
 #include "stage.h"
 
 class Level {
+	std::vector<std::string> stages;//스테이지 이름만 저장.
+	Ball ball;
+	Stage currentStage;//현재 스테이지를 저장.
+	int level;
+	int life;
+
 public:
 	Level();
+	Level(const std::string& filename);
 	~Level();
 
 	/* 스테이지 추가, 접근, 제거 */
-	void appendStage(Stage& stage);
-	void appendStage(std::string& filename);
+	void appendStage(const std::string& filename);
 	void deleteStage(int index);
-	std::string* getStage(int i);
+	Stage& getStage();
+	Ball& getBall();
 
+	void start();
+	void restartStage();
 	void stageWin(); //스테이지를 클리어한 경우
 	void stageDeath();  //체력을 잃는 경우
 
 	void gameStartScene(); //프로그램 시작시
+	void stageStartScene(); //새로 스테이지 시작시
 	void gameOverScene(); //체력이 0까지 떨어질 경우
-
-private:
-	std::vector<std::string> stages;//스테이지 이름만 저장.
-	Stage currentStage;//현재 스테이지를 저장.
-	int level;
-	int life;
+	void gameClearScene(); //게임 클리어
 
 };
 #endif

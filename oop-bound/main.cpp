@@ -1,7 +1,10 @@
+#include <crtdbg.h>
+
 #include <SFML/Graphics.hpp>
 #include "main.h"
 #include "block.h"
 #include "stage.h"
+#include "level.h"
 #include <iostream>
 
 int main()
@@ -11,12 +14,14 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Catch the flag!!");
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-	Stage stage("stage/stage2.txt");
-	Ball ball;
+	Level level("stage/stage1.txt");
+	level.appendStage("stage/stage2.txt");
+	Stage& stage = level.getStage();
+	Ball& ball = level.getBall();
 	ball.setPosition(stage.getStartPoint().x * BLOCK_SIZE + BLOCK_SIZE / 2, stage.getStartPoint().y * BLOCK_SIZE + BLOCK_SIZE / 2);
-	ball.setSpeed(0.f, -.4f);
-	//ball.setSpeed(1.0f / 1800, 0);
-	// run the program as long as the window is open
+	
+	
+	level.start();
 	while (window.isOpen())
 	{
 		// check all the window's events that were triggered since the last iteration of the loop
@@ -54,13 +59,14 @@ int main()
 		}
 		// clear the window with black color
 		window.clear(sf::Color::Black);
+		// end the current frame
 		ball.draw(window);
 		ball.update();
-		// end the current frame
 		stage.draw(window);
 		window.display();
 		window.setFramerateLimit(60);
 	}
 
+	_CrtDumpMemoryLeaks();
 	return 0;
 }

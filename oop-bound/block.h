@@ -8,6 +8,7 @@ public:
 	DefaultBlock();
 	~DefaultBlock();
 	char getFileToken() { return TOKEN_DEFAULTBLOCK; }
+	BaseBlock* clonePtr() const { return new DefaultBlock(*this); }
 };
 
 class BreakBlock : public BaseBlock {
@@ -21,7 +22,7 @@ public:
 	void draw(sf::RenderWindow& window);
 	void breakSelf();
 	char getFileToken() { return TOKEN_BREAKBLOCK; }
-
+	BaseBlock* clonePtr() const { return new BreakBlock(*this); }
 };
 
 class FlagBlock : public BaseBlock {
@@ -30,6 +31,7 @@ public:
 	~FlagBlock();
 	void collision_top(Ball& b);
 	char getFileToken() { return TOKEN_FLAGBLOCK; }
+	BaseBlock* clonePtr() const { return new FlagBlock(*this); }
 };
 
 class BombBlock : public BaseBlock {
@@ -45,6 +47,7 @@ public:
 	~BombBlock();
 	void draw(sf::RenderWindow& window);
 	char getFileToken() { return TOKEN_BOMBBLOCK; }
+	BaseBlock* clonePtr() const { return new BombBlock(*this); }
 };
 
 class JumpBlock : public BaseBlock {
@@ -53,5 +56,6 @@ public:
 	~JumpBlock();
 	void collision_top(Ball& b);
 	char getFileToken() { return TOKEN_JUMPBLOCK; }
+	BaseBlock* clonePtr() const { return new JumpBlock(*this); }
 };
 #endif
