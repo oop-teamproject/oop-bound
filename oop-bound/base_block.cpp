@@ -36,7 +36,7 @@ void BaseBlock::collision_right(Ball& b) {
 }
 
 void BaseBlock::collision_bottom(Ball& b) {
-	b.setSpeed(b.getSpeed().x, -b.getSpeed().y);
+	b.setSpeed(b.getSpeed().x, -b.getSpeed().y*2/3);
 }
 
 
