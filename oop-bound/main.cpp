@@ -14,8 +14,8 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Catch the flag!!");
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-	Level level("stage/stage1.txt");
-	level.appendStage("stage/stage2.txt");
+	Level level("stage/stage2.txt");
+	level.appendStage("stage/stage1.txt");
 	Stage& stage = level.getStage();
 	Ball& ball = level.getBall();
 	ball.setPosition(stage.getStartPoint().x * BLOCK_SIZE + BLOCK_SIZE / 2, stage.getStartPoint().y * BLOCK_SIZE + BLOCK_SIZE / 2);

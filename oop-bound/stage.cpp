@@ -72,6 +72,15 @@ bool Stage::loadFromFile(const std::string& filename)
 				startpoint = sf::Vector2<int>(i, j);
 				setAt(i, j, new AirBlock());
 				break;
+			case TOKEN_ONOFFBLOCK_ON:
+				setAt(i, j, new OnoffBlock(true));
+				break;
+			case TOKEN_ONOFFBLOCK_OFF:
+				setAt(i, j, new OnoffBlock(false));
+				break;
+			case TOKEN_SWITCHBLOCK:
+				setAt(i, j, new SwitchBlock(true));
+				break;
 			default:
 				setAt(i, j, new AirBlock());
 				break;
