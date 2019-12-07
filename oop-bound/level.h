@@ -13,6 +13,7 @@ class Level {
 public:
 	Level();
 	Level(const std::string& filename);
+	Level(std::vector<std::string>& levelList);
 	~Level();
 
 	/* 스테이지 추가, 접근, 제거 */
@@ -20,6 +21,9 @@ public:
 	void deleteStage(int index);
 	Stage& getStage();
 	Ball& getBall();
+
+	void update();
+	void draw(sf::RenderWindow& window);
 
 	void start();
 	void restartStage();
