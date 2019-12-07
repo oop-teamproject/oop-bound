@@ -27,6 +27,7 @@ public:
 	virtual gamestate collision_bottom(Ball& b);
 	
 	virtual gamestate collision_check(Ball& b);
+
 	bool setTexture(std::string filename, float scale = 1.f);
 	virtual void draw(sf::RenderWindow& window);
 	void setPosition(int x, int y);

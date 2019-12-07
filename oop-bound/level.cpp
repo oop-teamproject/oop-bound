@@ -67,6 +67,7 @@ void Level::update()
 	int ballGridX = int(ball.getPosition().x) / BLOCK_SIZE;
 	int ballGridY = int(ball.getPosition().y) / BLOCK_SIZE;
 	BaseBlock* b;
+	ball.update();
 	for (int i = ballGridX - 1; i <= ballGridX + 1; i++) {
 		for (int j = ballGridY - 1; j <= ballGridY + 1; j++) {
 			b = currentStage.getAt(i, j);
@@ -76,7 +77,6 @@ void Level::update()
 			}
 		}
 	}
-	ball.update();
 	if (ball.getPosition().y > WINDOW_WIDTH) pushToken(gamestate::DEAD);
 	tokenUpdate();
 
