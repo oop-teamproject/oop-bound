@@ -162,8 +162,8 @@ void Stage::ToggleOnoff()
 	for (int i = 0; i < NUM_BLOCK_WIDTH; i++) {
 		for (int j = 0; j < NUM_BLOCK_HEIGHT; j++) {
 			int token = getAt(i, j)->getFileToken();
-			if (token == TOKEN_SWITCHBLOCK) ((SwitchBlock*)getAt(i, j))->toggleSwitch();
-			if(token == TOKEN_ONOFFBLOCK_OFF || token == TOKEN_ONOFFBLOCK_ON) ((OnoffBlock*)getAt(i, j))->toggleSwitch();
+			if (token == TOKEN_SWITCHBLOCK) dynamic_cast<SwitchBlock*>(getAt(i, j))->toggleSwitch();
+			if(token == TOKEN_ONOFFBLOCK_OFF || token == TOKEN_ONOFFBLOCK_ON) dynamic_cast<OnoffBlock*>(getAt(i, j))->toggleSwitch();
 		}
 	}
 }

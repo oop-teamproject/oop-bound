@@ -4,9 +4,11 @@
 #include <cassert>
 
 Level::Level() {
-	level = 0;
+	level = 1;
 	life = 10;
 	isRunning = true;
+	font.loadFromFile("font/ariblk.ttf");
+	text.setFont(font);
 }
 Level::Level(const std ::string& listfile): Level() {
 	std::ifstream ifs;
@@ -50,6 +52,11 @@ Ball& Level::getBall()
 
 void Level::update()
 {
+	if (sceneRunning()) {
+		sceneUpdate();
+		return;
+	}
+
 	gamestate nextToken;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		ball.setLkPressed(true);
@@ -85,8 +92,20 @@ void Level::update()
 
 void Level::draw(sf::RenderWindow& window)
 {
-	currentStage.draw(window);
-	ball.draw(window);
+	if (sceneRunning()) {
+		window.draw(sprite);
+		if (sceneQueue.front().first == "image/game_start.png") {
+			text.setString(std::to_string(life));
+			text.setCharacterSize(60);
+			text.setPosition(500, 370);
+			text.setFillColor(sf::Color(34, 177, 76));
+			window.draw(text);
+		}
+	}
+	else {
+		currentStage.draw(window);
+		ball.draw(window);
+	}
 }
 
 void Level::start() {
@@ -104,7 +123,7 @@ void Level::stageWin() {
 	level++;
 	if (level >= stages.size()) {
 		gameClearScene();
-		pushToken(gamestate::EXIT);
+		pushToken(gamestate::EXIT, 0);
 	}
 	else {
 		restartStage();
@@ -118,7 +137,7 @@ void Level::stageDeath() {
 	}
 	else {
 		gameOverScene();
-		pushToken(gamestate::EXIT);
+		pushToken(gamestate::EXIT, 0);
 	}
 }
 
@@ -166,6 +185,7 @@ void Level::tokenUpdate() {
 				stageWin();
 				break;
 			case gamestate::EXIT:
+				nextActs.clear();
 				isRunning = false;
 				break;
 			default:
@@ -175,17 +195,47 @@ void Level::tokenUpdate() {
 	}
 }
 
+void Level::pushScene(std::string filename, int duration) {
+	sceneQueue.push_back(std::pair<std::string, int>(filename, duration));
+	if (sceneQueue.size() == 1) {
+		texture.loadFromFile(sceneQueue.front().first);
+		sprite.setTexture(texture);
+		sprite.setPosition(0.f, 0.f);
+	}
+}
+void Level::quitScene() {
+	sceneQueue.pop_front();
+}
+void Level::sceneUpdate() {
+	if (!sceneQueue.empty()) {
+		if (sceneQueue.front().second >= 0) {
+			sceneQueue.front().second--;
+		}
+		else {
+			sceneQueue.pop_front();
+			if (!sceneQueue.empty()) {
+				texture.loadFromFile(sceneQueue.front().first);
+				sprite.setTexture(texture);
+				sprite.setPosition(0.f, 0.f);
+			}
+		}
+	}
+}
+bool Level::sceneRunning() {
+	return !sceneQueue.empty();
+}
+
 void Level::stageStartScene() {
-	std::cout << "Stage Begin, life= " << life << std::endl;
+	pushScene("image/game_start.png", 60);
 }
 void Level::gameStartScene() {
-	std::cout << "YOU BEGIN!" << std::endl;
+	pushScene("image/game_start.png", 60);
 }
 
 void Level::gameOverScene() {
-	std::cout << "YOU LOSEr!" << std::endl;
+	pushScene("image/game_over.png", 60);
 }
 
 void Level::gameClearScene() {
-	std::cout << "YOU WIN!" << std::endl;
+	pushScene("image/game_clear.png", 60);
 }

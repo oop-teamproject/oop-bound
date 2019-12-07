@@ -16,6 +16,12 @@ class Level {
 	int level;//지금 몇 번째 레벨인지
 	int life; //지금 남은 목숨은 몇 개인지
 	bool isRunning; // 게임 루프를 계속 돌려야 하는지
+
+	sf::Texture texture;
+	sf::Sprite sprite;
+	std::list<std::pair<std::string, int>> sceneQueue; //<이미지 주소, 재생 프레임.>게임 시작, 게임 오버, 스테이지 시작 등의 씬을 담당한다. 따로 종료하지 않으면 무조건 씬 출력이 우선순위.
+	sf::Font font; //스테이지 시작할 때 체력을 표시하기 위한 폰트.
+	sf::Text text; //스테이지 시작할 때 체력을 표시하기 위한 텍스트 클래스.
 public:
 	Level();
 	Level(const std::string& filename);
@@ -41,6 +47,12 @@ public:
 	void stageDeath();  //체력을 잃는 경우
 
 	//아래는 게임에 어떠한 영향도 끼치지 않는다. 이미지를 출력하고 끝.
+
+	void pushScene(std::string filename, int duration);
+	void quitScene();
+	void sceneUpdate();
+	bool sceneRunning();
+
 	void gameStartScene(); //프로그램 시작시
 	void stageStartScene(); //새로 스테이지 시작시
 	void gameOverScene(); //체력이 0까지 떨어질 경우
