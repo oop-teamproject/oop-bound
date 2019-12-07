@@ -44,7 +44,7 @@ void SwitchBlock::collision_left(Ball& b) {
 	hitswitch();
 }
 void SwitchBlock::collision_bottom(Ball& b) {
-	b.setSpeed(b.getSpeed().x, -b.getSpeed().y);
+	b.setSpeed(b.getSpeed().x, -b.getSpeed().y*2/3);
 	hitswitch();
 }
 
