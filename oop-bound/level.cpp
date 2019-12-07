@@ -4,7 +4,7 @@
 #include <cassert>
 
 Level::Level() {
-	level = 1;
+	level = 0;
 	life = 10;
 	isRunning = true;
 	font.loadFromFile("font/ariblk.ttf");
