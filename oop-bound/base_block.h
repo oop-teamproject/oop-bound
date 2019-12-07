@@ -6,7 +6,6 @@
 #include <tuple>
 #include "Ball.h"
 #include "blocktoken.h"
-#include "level.h"
 
 class BaseBlock {
 private:

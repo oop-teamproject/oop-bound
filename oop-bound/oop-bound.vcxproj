@@ -119,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SFML-2.5.1\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,7 +133,6 @@
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="base_block.cpp" />
     <ClCompile Include="block.cpp" />
-    <ClCompile Include="interact_block.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stage.cpp" />
@@ -143,7 +142,6 @@
     <ClInclude Include="base_block.h" />
     <ClInclude Include="block.h" />
     <ClInclude Include="blocktoken.h" />
-    <ClInclude Include="interact_block.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="stage.h" />

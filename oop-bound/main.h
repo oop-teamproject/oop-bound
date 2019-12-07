@@ -10,7 +10,6 @@ main.h
 
 #ifndef __MAIN_H__
 #define __MAIN_H__
-#include <SFML/Graphics.hpp>
 
 #define BLOCK_SIZE 30 //블럭 한 칸의 크기를 기준으로 구역을 나눈다.
 #define NUM_BLOCK_HEIGHT 20
