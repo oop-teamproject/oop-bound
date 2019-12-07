@@ -10,7 +10,7 @@ class Level {
 	std::vector<std::string> stages;//스테이지 이름만 저장.
 	std::list<std::pair<gamestate, int>> nextActs;
 	//앞으로 할 행동들--죽어서 다시 시작하거나, onoff블럭을 건드리거나, 게임을 클리어해서 다음 레벨로 가거나 등등.
-	//queue처럼 맨 뒤에 넣어서 맨 앞만 접근하긴 할 텐데, 남은 시간(.second)을 매 프레임 변경하는 식으로 하는 게 코딩이 편해서 queue 대신 list를 사용했다.
+	//queue처럼 맨 뒤에 넣어서 맨 앞만 접근하지만, 남은 시간(.second)을 매 프레임 변경하는 식으로 하는 게 코딩이 편해서 queue 대신 list를 사용했다.
 	Stage currentStage;//현재 스테이지를 저장.
 	Ball ball;
 	int level;//지금 몇 번째 레벨인지

@@ -107,7 +107,6 @@ void Level::stageWin() {
 		pushToken(gamestate::EXIT);
 	}
 	else {
-		stageStartScene();
 		restartStage();
 	}
 }
@@ -115,8 +114,6 @@ void Level::stageWin() {
 void Level::stageDeath() {
 	life--;
 	if (life > 0) {
-		
-		stageStartScene();
 		restartStage();
 	}
 	else {

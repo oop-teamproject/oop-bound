@@ -11,17 +11,11 @@ file input/output
 Stage& operator=(const Stage&)를 위해서 BaseBlock.clonePtr()을 선언하고 싶다.(Done)
 포인터를 할당해서 자신의 데이터를 복사해 넣은 뒤에 반환. polymorphism(Done)
 
-Stage::std::list<BaseBlock*> drawlist;(하는 중..)
+Stage::std::list<BaseBlock*> drawlist;(Done)
 그려야 되는 블럭만을 저장. airblock 빼고, 폭탄 터지면 터진 폭블럭만 마지막에 한번 더 그리고(push_back) 등등..
 
-level은 전역변수로 두든 전역 함수가 저걸 건드릴 수 있게 하든 해서scope를 코드 전체로 넓히고 싶다. main.h
-그래도 그건 좀 아닌가? 아니야?
-전역 함수 선택을 잘 하면?
-
-Stage& stage = Level.getStageRef();(Done)
-
-ball 클래스에 level 인스턴스 추가(추락할 때 목숨 떨구기용, 또 용도가 있나??)
-
-base_block.collision_check(Ball& b) => base_block.collision_check(Ball& b, Level& lv);
-충돌처리할 때 레벨에 영향을 끼치는 것들이 있다.(폭탄이 터지는 경우, 스위치를 누르는 경우 등)
+bool BaseBlock::check_collision(Ball& b) => gamestate BaseBlock::check_collision(Ball& b) (Done)
+블럭이 스테이지를 업데이트 해야 하는 경우.
+전역변수니 뭐니 이것저것 해보았지만 도저히 되는 게 없었다. 대신, 게임을 업데이트 해야 하는 경우
+"어떻게" 업데이트해야 하는지를 반환하는 방식을 채택했다.(거의 한나절 꼬박 걸림.. 이 쉬운걸.)
 
