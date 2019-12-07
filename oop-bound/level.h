@@ -2,6 +2,7 @@
 #define __LEVEL_H__
 #include <vector>
 #include "stage.h"
+#include "base_block.h"
 
 class Level {
 	std::vector<std::string> stages;//스테이지 이름만 저장.

@@ -1,10 +1,11 @@
 #ifndef __STAGE_H__
 #define __STAGE_H__
 
-#include "block.h"
 #include "main.h"
 #include "blocktoken.h"
 #include <list>
+#include "ball.h"
+class BaseBlock;
 
 class Stage {
 	sf::Vector2<int> startpoint;

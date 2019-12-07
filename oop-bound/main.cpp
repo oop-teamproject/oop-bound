@@ -1,6 +1,5 @@
 #include <crtdbg.h>
 
-#include <SFML/Graphics.hpp>
 #include "main.h"
 #include "block.h"
 #include "stage.h"

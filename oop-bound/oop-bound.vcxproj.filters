@@ -33,6 +33,9 @@
     <ClCompile Include="level.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="interact_block.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h">
@@ -54,6 +57,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="blocktoken.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="interact_block.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

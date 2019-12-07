@@ -1,6 +1,7 @@
 #include "stage.h"
 #include <assert.h>
 #include <fstream>
+#include "block.h"
 
 Stage::Stage() {
 	for (int i = 0; i < width; i++) {
