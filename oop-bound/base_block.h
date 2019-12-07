@@ -6,6 +6,7 @@
 #include <tuple>
 #include "Ball.h"
 #include "blocktoken.h"
+#include "gamestate.h"
 
 class BaseBlock {
 private:
@@ -20,12 +21,12 @@ private:
 public:
 	BaseBlock();
 	virtual ~BaseBlock();
-	virtual void collision_top(Ball& b);
-	virtual void collision_left(Ball& b);
-	virtual void collision_right(Ball& b);
-	virtual void collision_bottom(Ball& b);
+	virtual gamestate collision_top(Ball& b);
+	virtual gamestate collision_left(Ball& b);
+	virtual gamestate collision_right(Ball& b);
+	virtual gamestate collision_bottom(Ball& b);
 	
-	virtual bool collision_check(Ball& b);
+	virtual gamestate collision_check(Ball& b);
 	bool setTexture(std::string filename, float scale = 1.f);
 	virtual void draw(sf::RenderWindow& window);
 	void setPosition(int x, int y);
@@ -40,7 +41,7 @@ class AirBlock: public BaseBlock{
 public:
 	AirBlock() {}
 	~AirBlock() {}
-	virtual bool collision_check(Ball& b) { return false; /*Do Nothing*/ }
+	virtual gamestate collision_check(Ball& b) { return gamestate::NO_TOKEN_ADD; /*Do Nothing*/ }
 	void draw(sf::RenderWindow& window) { /*Do Nothing*/ }
 	
 	char getFileToken() { return TOKEN_AIRBLOCK; }

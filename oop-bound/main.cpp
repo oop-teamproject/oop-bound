@@ -15,8 +15,9 @@ int main()
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
 	Level level("stage/playlist.txt");
+	level.gameStartScene();
 	level.start();
-	while (window.isOpen())
+	while (window.isOpen() && level.running())
 	{
 		// check all the window's events that were triggered since the last iteration of the loop
 		sf::Event event;

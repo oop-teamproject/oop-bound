@@ -1,10 +1,12 @@
 #include "level.h"
 #include <fstream>
 #include <iostream>
+#include <cassert>
 
 Level::Level() {
 	level = 0;
 	life = 10;
+	isRunning = true;
 }
 Level::Level(const std ::string& listfile): Level() {
 	std::ifstream ifs;
@@ -48,6 +50,7 @@ Ball& Level::getBall()
 
 void Level::update()
 {
+	gamestate nextToken;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		ball.setLkPressed(true);
 		ball.setRkPressed(false);
@@ -63,15 +66,21 @@ void Level::update()
 	//collision between ball and blocks
 	int ballGridX = int(ball.getPosition().x) / BLOCK_SIZE;
 	int ballGridY = int(ball.getPosition().y) / BLOCK_SIZE;
-
+	BaseBlock* b;
 	for (int i = ballGridX - 1; i <= ballGridX + 1; i++) {
 		for (int j = ballGridY - 1; j <= ballGridY + 1; j++) {
-			if (i >= 0 && i < currentStage.getSize().x)
-				if (j >= 0 && j < currentStage.getSize().y)
-					currentStage.getAt(i, j)->collision_check(ball);
+			b = currentStage.getAt(i, j);
+			if (b) {
+				nextToken = b->collision_check(ball);
+				pushToken(nextToken);
+			}
 		}
 	}
 	ball.update();
+	if (ball.getPosition().y > WINDOW_WIDTH) pushToken(gamestate::DEAD);
+	tokenUpdate();
+
+	//next action update
 }
 
 void Level::draw(sf::RenderWindow& window)
@@ -93,8 +102,10 @@ void Level::restartStage()
 
 void Level::stageWin() {
 	level++;
-	if (level >= stages.size())
+	if (level >= stages.size()) {
 		gameClearScene();
+		pushToken(gamestate::EXIT);
+	}
 	else {
 		stageStartScene();
 		restartStage();
@@ -108,11 +119,67 @@ void Level::stageDeath() {
 		stageStartScene();
 		restartStage();
 	}
-	else gameOverScene();
+	else {
+		gameOverScene();
+		pushToken(gamestate::EXIT);
+	}
+}
+
+
+void Level::pushToken(gamestate gs, int time) {
+	if (time == -1) {
+		switch (gs) {
+		case gamestate::NO_TOKEN_ADD:
+			//ignore
+			break;
+		case gamestate::DEAD:
+			nextActs.push_back(std::pair<gamestate, int>(gs, 60));
+			break;
+		case gamestate::ONOFF_UPDATE:
+			nextActs.push_back(std::pair<gamestate, int>(gs, 0));
+			break;
+		case gamestate::WIN:
+			nextActs.push_back(std::pair<gamestate, int>(gs, 60));
+			break;
+		case gamestate::EXIT:
+			nextActs.push_back(std::pair<gamestate, int>(gs, 60));
+		}
+	}
+	else nextActs.push_back(std::pair<gamestate, int>(gs, time));
+}
+
+void Level::tokenUpdate() {
+	if (!nextActs.empty()) {
+		int leftTime = nextActs.begin()->second;
+		if(leftTime > 0)
+			nextActs.begin()->second--;
+		else {
+			gamestate state = nextActs.begin()->first;
+			nextActs.pop_front();
+			switch (state) {
+			case gamestate::DEAD:
+				nextActs.clear();
+				stageDeath();
+				break;
+			case gamestate::ONOFF_UPDATE:
+				currentStage.ToggleOnoff();
+				break;
+			case gamestate::WIN:
+				nextActs.clear();
+				stageWin();
+				break;
+			case gamestate::EXIT:
+				isRunning = false;
+				break;
+			default:
+				assert(false);
+			}
+		}
+	}
 }
 
 void Level::stageStartScene() {
-	std::cout << "Stage Begin" << std::endl;
+	std::cout << "Stage Begin, life= " << life << std::endl;
 }
 void Level::gameStartScene() {
 	std::cout << "YOU BEGIN!" << std::endl;

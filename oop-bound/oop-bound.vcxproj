@@ -143,6 +143,7 @@
     <ClInclude Include="block.h" />
     <ClInclude Include="blocktoken.h" />
     <ClInclude Include="level.h" />
+    <ClInclude Include="gamestate.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="stage.h" />
   </ItemGroup>

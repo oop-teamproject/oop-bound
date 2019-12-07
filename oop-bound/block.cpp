@@ -9,21 +9,22 @@ DefaultBlock::~DefaultBlock() {
 }
 
 SwitchBlock::SwitchBlock(bool on) {
-
+	switchpressed = on;
 	setTexture("image/onswitch.png");
 }
 SwitchBlock::~SwitchBlock() {
 
 }
 
-void SwitchBlock::hitswitch() {
-	switchpressed = !getState();
-	if (getState()) {
-		setTexture("image/onswitch.png");
-	}
-	else {
-		setTexture("image/offswitch.png");
-	}
+void SwitchBlock::toggleSwitch() {
+	setState(!getState());
+}
+
+void SwitchBlock::setState(bool b)
+{
+	switchpressed = b;
+	if (b) setTexture("image/onswitch.png");
+	else setTexture("image/offswitch.png");
 }
 
 
@@ -31,46 +32,44 @@ bool SwitchBlock::getState() {
 	return switchpressed;
 }
 
-void SwitchBlock::collision_top(Ball& b) {
+gamestate SwitchBlock::collision_top(Ball& b) {
 	b.setSpeed(b.getSpeed().x, -.4f);
-	hitswitch();
+	return gamestate::ONOFF_UPDATE;
 }
-void SwitchBlock::collision_right(Ball& b) {
+gamestate SwitchBlock::collision_right(Ball& b) {
 	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
-	hitswitch();
+	return gamestate::ONOFF_UPDATE;
 }
-void SwitchBlock::collision_left(Ball& b) {
+gamestate SwitchBlock::collision_left(Ball& b) {
 	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
-	hitswitch();
+	return gamestate::ONOFF_UPDATE;
 }
-void SwitchBlock::collision_bottom(Ball& b) {
+gamestate SwitchBlock::collision_bottom(Ball& b) {
 	b.setSpeed(b.getSpeed().x, -b.getSpeed().y*2/3);
-	hitswitch();
+	return gamestate::ONOFF_UPDATE;
 }
 
 OnoffBlock::OnoffBlock(bool on) {
-	
-	switchpressed = on;
-	if(switchpressed == true)
-	{
-		setTexture("image/on.png");
-	}
-	if (switchpressed == false)
-	{
-		setTexture("image/off.png");
-	}
-	
+	setState(on);
 }
 OnoffBlock::~OnoffBlock() {
-
 }
-bool OnoffBlock::collision_check(Ball& b)
+void OnoffBlock::setState(bool b) {
+	switchpressed = b;
+	if (b) setTexture("image/on.png");
+	else setTexture("image/off.png");
+}
+bool OnoffBlock::getState() {
+	return switchpressed;
+}
+
+void OnoffBlock::toggleSwitch() {
+	setState(!getState());
+}
+gamestate OnoffBlock::collision_check(Ball& b)
 {
-	if (switchpressed == true) {
-		BaseBlock::collision_check(b);
-		return true;
-	}
-	else return false;
+	if (getState()) BaseBlock::collision_check(b);
+	return gamestate::NO_TOKEN_ADD;
 }
 
 
@@ -83,14 +82,15 @@ BreakBlock::~BreakBlock() {
 
 }
 
-void BreakBlock::collision_top(Ball& b) {
+gamestate BreakBlock::collision_top(Ball& b) {
 	BaseBlock::collision_top(b);
 	breakSelf();
+	return gamestate::NO_TOKEN_ADD;
 }
 
-bool BreakBlock::collision_check(Ball& b) {
+gamestate BreakBlock::collision_check(Ball& b) {
 	if (!broken) return BaseBlock::collision_check(b);
-	return false;
+	return gamestate::NO_TOKEN_ADD;
 }
 
 void BreakBlock::draw(sf::RenderWindow& window) {
@@ -110,8 +110,17 @@ FlagBlock::~FlagBlock()
 {
 }
 
-void FlagBlock::collision_top(Ball& b) {
-	return BaseBlock::collision_top(b);
+gamestate FlagBlock::collision_top(Ball& b) {
+	return gamestate::WIN;
+}
+gamestate FlagBlock::collision_right(Ball& b) {
+	return gamestate::WIN;
+}
+gamestate FlagBlock::collision_left(Ball& b) {
+	return gamestate::WIN;
+}
+gamestate FlagBlock::collision_bottom(Ball& b) {
+	return gamestate::WIN;
 }
 
 BombBlock::BombBlock()
@@ -121,31 +130,35 @@ BombBlock::BombBlock()
 	setTexture("image/bomb.png");
 }
 
-void BombBlock::collision_top(Ball& b) {
+gamestate BombBlock::collision_top(Ball& b) {
 	exploded = true;
 	b.setSpeed(b.getSpeed().x, -.4f);
 	setTexture("image/explosion.png");
+	return gamestate::DEAD;
 }
-void BombBlock::collision_right(Ball& b) {
+gamestate BombBlock::collision_right(Ball& b) {
 	exploded = true;
 	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
 	setTexture("image/explosion.png");
+	return gamestate::DEAD;
 }
-void BombBlock::collision_left(Ball& b) {
+gamestate BombBlock::collision_left(Ball& b) {
 	exploded = true;
 	b.setSpeed(-b.getSpeed().x, b.getSpeed().y);
 	setTexture("image/explosion.png");
+	return gamestate::DEAD;
 }
-void BombBlock::collision_bottom(Ball& b) {
+gamestate BombBlock::collision_bottom(Ball& b) {
 	exploded = true;
 	b.setSpeed(b.getSpeed().x, -b.getSpeed().y);
 	setTexture("image/explosion.png");
+	return gamestate::DEAD;
 }
 
-bool BombBlock::collision_check(Ball& b) {
+gamestate BombBlock::collision_check(Ball& b) {
 	if (!exploded)
 		return BaseBlock::collision_check(b);
-	else return false;
+	else return gamestate::NO_TOKEN_ADD;
 }
 
 BombBlock::~BombBlock()
@@ -168,6 +181,7 @@ JumpBlock::JumpBlock()
 
 JumpBlock::~JumpBlock() { }
 
-void JumpBlock::collision_top(Ball& b) {
+gamestate JumpBlock::collision_top(Ball& b) {
 	b.setSpeed(b.getSpeed().x, -.6f);
+	return gamestate::NO_TOKEN_ADD;
 }

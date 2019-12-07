@@ -3,8 +3,8 @@
 #include <fstream>
 
 Stage::Stage() {
-	for (int i = 0; i < width; i++) {
-		for (int j = 0; j < height; j++) {
+	for (int i = 0; i < NUM_BLOCK_WIDTH; i++) {
+		for (int j = 0; j < NUM_BLOCK_HEIGHT; j++) {
 			map[i][j] = new AirBlock();
 			map[i][j]->setPositionToGrid(i, j);
 			drawlist.clear();
@@ -22,8 +22,8 @@ Stage::Stage(Stage& stage) {
 Stage& Stage::operator=(Stage& stage)
 {
 	startpoint = stage.getStartPoint();
-	for (int i = 0;i < width;i++) {
-		for (int j = 0;j < height;j++) {
+	for (int i = 0;i < NUM_BLOCK_WIDTH;i++) {
+		for (int j = 0;j < NUM_BLOCK_HEIGHT;j++) {
 			delete map[i][j];
 			map[i][j] = stage.getAt(i, j) ->clonePtr();
 			if (map[i][j]->getFileToken() != '0') //airblock이 아닌 경우
@@ -34,8 +34,8 @@ Stage& Stage::operator=(Stage& stage)
 }
 
 Stage::~Stage() {
-	for (int i = 0; i < width; i++) {
-		for (int j = 0; j < height; j++) {
+	for (int i = 0; i < NUM_BLOCK_WIDTH; i++) {
+		for (int j = 0; j < NUM_BLOCK_HEIGHT; j++) {
 			delete map[i][j];
 			map[i][j] = NULL;
 		}
@@ -46,8 +46,8 @@ bool Stage::loadFromFile(const std::string& filename)
 {
 	std::ifstream infile(filename);
 	char token;
-	for (int j = 0;j < height; j++) {
-		for (int i = 0;i < width;i++) {
+	for (int j = 0;j < NUM_BLOCK_HEIGHT; j++) {
+		for (int i = 0;i < NUM_BLOCK_WIDTH;i++) {
 			infile >> token;
 			switch (token) {
 			case TOKEN_AIRBLOCK:
@@ -93,8 +93,8 @@ bool Stage::loadFromFile(const std::string& filename)
 bool Stage::writeToFile(const std::string& filename)
 {
 	std::ofstream outfile(filename);
-	for (int j = 0; j < height;j++) {
-		for (int i = 0;i < width;i++) {
+	for (int j = 0; j < NUM_BLOCK_HEIGHT;j++) {
+		for (int i = 0;i < NUM_BLOCK_WIDTH;i++) {
 			if (i == startpoint.x && j == startpoint.y)
 				outfile << TOKEN_STARTPOINT;
 			else outfile << getAt(i, j)->getFileToken();
@@ -107,8 +107,8 @@ bool Stage::writeToFile(const std::string& filename)
 
 bool Stage::deleteAt(int a, int b)
 {
-	if (a >= width || a < 0) return false;
-	if (b >= height || b < 0) return false;
+	if (a >= NUM_BLOCK_WIDTH || a < 0) return false;
+	if (b >= NUM_BLOCK_HEIGHT || b < 0) return false;
 	if (map[a][b] == NULL) return false;
 	drawlist.remove(map[a][b]);
 	delete map[a][b];
@@ -124,6 +124,14 @@ bool Stage::setAt(int a, int b, BaseBlock* block) {
 	if(block->getFileToken() != '0')
 		drawlist.push_back(map[a][b]);
 	return true;
+}
+
+BaseBlock* Stage::getAt(int a, int b)
+{
+	if (a >= NUM_BLOCK_WIDTH || a < 0) return NULL;
+	if (b >= NUM_BLOCK_HEIGHT || b < 0) return NULL;
+	if (map[a][b] == NULL) return NULL;
+	return map[a][b];
 }
 
 sf::Vector2<int> Stage::getStartPoint()
@@ -147,6 +155,17 @@ bool Stage::setStartPoint(sf::Vector2<int>& pt)
 		return true;
 	}
 	else return false;
+}
+
+void Stage::ToggleOnoff()
+{
+	for (int i = 0; i < NUM_BLOCK_WIDTH; i++) {
+		for (int j = 0; j < NUM_BLOCK_HEIGHT; j++) {
+			int token = getAt(i, j)->getFileToken();
+			if (token == TOKEN_SWITCHBLOCK) ((SwitchBlock*)getAt(i, j))->toggleSwitch();
+			if(token == TOKEN_ONOFFBLOCK_OFF || token == TOKEN_ONOFFBLOCK_ON) ((OnoffBlock*)getAt(i, j))->toggleSwitch();
+		}
+	}
 }
 
 
