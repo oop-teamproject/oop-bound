@@ -31,32 +31,33 @@ public:
 	/* 스테이지 추가, 접근, 제거 */
 	void appendStage(const std::string& filename);
 	void deleteStage(int index);
-	Stage& getStage();
-	Ball& getBall();
-
-	void pushToken(gamestate, int = -1); // int프레임 후에 gamestate에 맞는 행동을 한다. gamestate와 int를 queue에 넣는 역할.
-	void tokenUpdate(); //queue를 감시하고 다음 행동을 할 프레임이 되면 그에 맞는 행동을 하고 queue를 업데이트한다.
-
+	
+	/* 게임 연산*/
 	void update();
 	void draw(sf::RenderWindow& window);
 	bool running() { return isRunning; }
 
+	/* 게임 흐름 제어 */
 	void start();
+	void gameStartScene(); //프로그램 시작시
+
+private:
 	void restartStage();
 	void stageWin(); //스테이지를 클리어한 경우
 	void stageDeath();  //체력을 잃는 경우
 
-	//아래는 게임에 어떠한 영향도 끼치지 않는다. 이미지를 출력하고 끝.
+	void pushToken(gamestate, int = -1); // int프레임 후에 gamestate에 맞는 행동을 한다. gamestate와 int를 queue에 넣는 역할.
+	void tokenUpdate(); //queue를 감시하고 다음 행동을 할 프레임이 되면 그에 맞는 행동을 하고 queue를 업데이트한다.
 
+	/*이미지 신 제어*/
 	void pushScene(std::string filename, int duration);
 	void quitScene();
 	void sceneUpdate();
 	bool sceneRunning();
 
-	void gameStartScene(); //프로그램 시작시
+	/*이미지 신 호출*/
 	void stageStartScene(); //새로 스테이지 시작시
 	void gameOverScene(); //체력이 0까지 떨어질 경우
 	void gameClearScene(); //게임 클리어
-
 };
 #endif

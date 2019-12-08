@@ -21,11 +21,7 @@ private:
 public:
 	BaseBlock();
 	virtual ~BaseBlock();
-	virtual gamestate collision_top(Ball& b);
-	virtual gamestate collision_left(Ball& b);
-	virtual gamestate collision_right(Ball& b);
-	virtual gamestate collision_bottom(Ball& b);
-	
+public:
 	virtual gamestate collision_check(Ball& b);
 
 	bool setTexture(std::string filename, float scale = 1.f);
@@ -36,6 +32,12 @@ public:
 
 	virtual char getFileToken() = 0;
 	virtual BaseBlock* clonePtr() const = 0;
+
+protected:
+	virtual gamestate collision_top(Ball& b);
+	virtual gamestate collision_left(Ball& b);
+	virtual gamestate collision_right(Ball& b);
+	virtual gamestate collision_bottom(Ball& b);
 };
 
 class AirBlock: public BaseBlock{

@@ -41,14 +41,6 @@ void Level::deleteStage(int index) {
 	stages.erase(iterator);
 }
 
-Stage& Level::getStage() {
-	return currentStage;
-}
-
-Ball& Level::getBall()
-{
-	return ball;
-}
 
 void Level::update()
 {

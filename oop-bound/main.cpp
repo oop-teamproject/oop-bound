@@ -17,6 +17,7 @@ int main()
 	Level level("stage/playlist.txt");
 	level.gameStartScene();
 	level.start();
+
 	while (window.isOpen() && level.running())
 	{
 		// check all the window's events that were triggered since the last iteration of the loop
@@ -34,6 +35,7 @@ int main()
 
 		level.update();
 		level.draw(window);
+
 
 		window.display();
 		window.setFramerateLimit(60);
