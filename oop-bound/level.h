@@ -39,12 +39,12 @@ public:
 
 	/* 게임 흐름 제어 */
 	void start();
-	void gameStartScene(); //프로그램 시작시
-
-private:
 	void restartStage();
 	void stageWin(); //스테이지를 클리어한 경우
 	void stageDeath();  //체력을 잃는 경우
+	void gameStartScene(); //프로그램 시작시
+
+private:
 
 	void pushToken(gamestate, int = -1); // int프레임 후에 gamestate에 맞는 행동을 한다. gamestate와 int를 queue에 넣는 역할.
 	void tokenUpdate(); //queue를 감시하고 다음 행동을 할 프레임이 되면 그에 맞는 행동을 하고 queue를 업데이트한다.
