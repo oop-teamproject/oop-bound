@@ -14,8 +14,9 @@ Level::Level(const std ::string& listfile): Level() {
 	std::ifstream ifs;
 	std::string filename;
 	ifs.open(listfile);
-	while (!ifs.eof()) {
+	while (true) {
 		ifs >> filename;
+		if (ifs.eof()) break;
 		stages.push_back("stage/" + filename + ".txt");
 	}
 	currentStage.loadFromFile(stages[0]);
