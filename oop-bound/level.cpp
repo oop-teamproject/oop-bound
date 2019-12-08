@@ -94,7 +94,7 @@ void Level::draw(sf::RenderWindow& window)
 {
 	if (sceneRunning()) {
 		window.draw(sprite);
-		if (sceneQueue.front().first == "image/game_start.png") {
+		if (sceneQueue.front().first == "image/game_stage_start.png") {
 			text.setString(std::to_string(life));
 			text.setCharacterSize(60);
 			text.setPosition(500, 370);
@@ -226,7 +226,7 @@ bool Level::sceneRunning() {
 }
 
 void Level::stageStartScene() {
-	pushScene("image/game_start.png", 60);
+	pushScene("image/game_stage_start.png", 60);
 }
 void Level::gameStartScene() {
 	pushScene("image/game_start.png", 60);
